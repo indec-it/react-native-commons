@@ -37,7 +37,7 @@ const Header = ({routes, text, brandImage}) => (
 );
 
 Header.propTypes = {
-    brandImage: PropTypes.string,
+    brandImage: PropTypes.number,
     text: PropTypes.string.isRequired,
     routes: PropTypes.arrayOf(PropTypes.shape({
         key: PropTypes.number,
