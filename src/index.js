@@ -5,6 +5,9 @@ import SectionTitle from './components/SectionTitle';
 import TextError from './components/TextError';
 import TextStrong from './components/TextStrong';
 
+export const getFontAwesome = (name, color, size) => ({
+    name, type: 'font-awesome', color, size
+});
 export {Col};
 export {LoadingIndicator};
 export {Row};
