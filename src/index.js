@@ -1,5 +1,6 @@
 import Button from './components/Button';
 import Col from './components/Col';
+import Grid from './components/Grid';
 import Header from './components/Header';
 import LoadingIndicator from './components/LoadingIndicator';
 import Row from './components/Row';
@@ -12,6 +13,7 @@ export const getFontAwesome = (name, color, size) => ({
 });
 export {Button};
 export {Col};
+export {Grid};
 export {Header};
 export {LoadingIndicator};
 export {Row};

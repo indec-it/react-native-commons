@@ -5,7 +5,7 @@ import {View} from 'react-native';
 import styles from './styles';
 
 const Col = ({children, style, size}) => (
-    <View style={[{flex: size || 1}, styles.col, style]}>
+    <View style={[{flex: size}, styles.col, style]}>
         {children}
     </View>
 );
@@ -21,7 +21,7 @@ Col.propTypes = {
 };
 
 Col.defaultProps = {
-    size: null,
+    size: 1,
     style: {}
 };
 

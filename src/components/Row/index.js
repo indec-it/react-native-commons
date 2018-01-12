@@ -5,7 +5,7 @@ import {View} from 'react-native';
 import styles from './styles';
 
 const Row = ({children, style, size}) => (
-    <View style={[{flex: size || 1}, styles.row, style]}>
+    <View style={[{flex: size}, styles.row, style]}>
         {children}
     </View>
 );
@@ -21,7 +21,7 @@ Row.propTypes = {
 };
 
 Row.defaultProps = {
-    size: null,
+    size: 1,
     style: {}
 };
 
