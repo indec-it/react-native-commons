@@ -1,5 +1,5 @@
 # react-native-commons
 
-## Instalation
+## Installation
 
     npm install @indec/react-native-commons

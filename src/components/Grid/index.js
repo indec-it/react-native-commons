@@ -22,7 +22,7 @@ const Grid = ({children, style}) => (
 Grid.propTypes = {
     children: PropTypes.oneOfType([
         PropTypes.instanceOf(Component),
-        PropTypes.shape({}),
+        PropTypes.func,
         PropTypes.array
     ]).isRequired,
     style: PropTypes.shape({})

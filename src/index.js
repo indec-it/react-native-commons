@@ -1,3 +1,4 @@
+import Button from './components/Button';
 import Col from './components/Col';
 import Grid from './components/Grid';
 import Header from './components/Header';
@@ -10,6 +11,7 @@ import TextStrong from './components/TextStrong';
 export const getFontAwesome = (name, color, size) => ({
     name, type: 'font-awesome', color, size
 });
+export {Button};
 export {Col};
 export {Grid};
 export {Header};
