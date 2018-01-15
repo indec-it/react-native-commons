@@ -7,6 +7,7 @@ import Row from './components/Row';
 import SectionTitle from './components/SectionTitle';
 import TextError from './components/TextError';
 import TextStrong from './components/TextStrong';
+import Splash from './components/Splash';
 
 export const getFontAwesome = (name, color, size) => ({
     name, type: 'font-awesome', color, size
@@ -20,3 +21,4 @@ export {Row};
 export {SectionTitle};
 export {TextError};
 export {TextStrong};
+export {Splash};
