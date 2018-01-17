@@ -30,7 +30,6 @@ class SignIn extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
             username: '',
             password: '',
             wrongPass: false
@@ -44,7 +43,7 @@ class SignIn extends Component {
     componentWillReceiveProps(nextProps) {
         const {token, logged} = nextProps;
         if (token || logged) {
-            this.props.history.push('/segments');
+            this.props.history.push('/area');
             return;
         }
         this.setState(
@@ -85,9 +84,11 @@ class SignIn extends Component {
                     value={password}
                     secureTextEntry
                 />
-                {wrongPass && <TextStrong style={styles.singIn.incorrectSingInText}>
-                    Usuario y/o contraseña inválidos
-                </TextStrong>}
+                {wrongPass &&
+                    <TextStrong style={styles.singIn.incorrectSingInText}>
+                        Usuario y/o contraseña inválidos
+                    </TextStrong>
+                }
                 <Button
                     title="Ingresar"
                     icon={getFontAwesome('lock')}

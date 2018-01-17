@@ -2,7 +2,7 @@
 import {call, put} from 'redux-saga/effects';
 
 import {handleError} from '../actions/common';
-import {notifyLoginFail, notifyLoginSucceeded, notifyTokenReceived } from '../actions/session';
+import {notifyLoginFail, notifyLoginSucceeded, notifyTokenReceived} from '../actions/session';
 
 import {SessionService} from '../services';
 
@@ -23,5 +23,4 @@ export function* getToken() {
         yield put(handleError(err));
     }
 }
-
 
