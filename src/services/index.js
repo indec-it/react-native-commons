@@ -1,3 +1,3 @@
 import SessionService from './session';
 
-export default {SessionService};
+export default SessionService;

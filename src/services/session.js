@@ -1,10 +1,9 @@
 import {LoginService, TokenService} from '@indec/heimdall/native';
-import {AUTH_ENDPOINT, REDIRECT_URI} from '../constants';
 
 export default class SessionService {
-    static async signIn({user: {username, password}}) {
-        const loginService = new LoginService(TokenService, AUTH_ENDPOINT);
-        const token = await loginService.login(username, password, REDIRECT_URI);
+    static async signIn({username, password}, authEndpoint, redirectUri) {
+        const loginService = new LoginService(TokenService, authEndpoint);
+        const token = await loginService.login(username, password, redirectUri);
         return !(token instanceof Error);
     }
 

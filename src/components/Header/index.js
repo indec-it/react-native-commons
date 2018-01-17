@@ -4,7 +4,7 @@ import {Image, Text, View} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {Link} from 'react-router-native';
 
-import {getFontAwesome, Row} from '../../index';
+import {getFontAwesome, Row} from '../..';
 import styles from './styles';
 
 const brandImageDefault = require('../../images/brand.png');

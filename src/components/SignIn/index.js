@@ -1,38 +1,33 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {ActivityIndicator, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import InputField from '@indec/react-native-md-textinput';
-import styles from './styles';
 
-import {Button, getFontAwesome, TextStrong} from '../../';
-
+import {Button, getFontAwesome, TextStrong} from '../..';
 import {requestLogin, requestToken} from '../../actions/session';
+import styles from './styles';
 
 class SignIn extends Component {
     static propTypes = {
-        history: PropTypes.shape({
-            push: PropTypes.func.isRequired
-        }).isRequired,
         requestLogin: PropTypes.func.isRequired,
         requestToken: PropTypes.func.isRequired,
-        logged: PropTypes.bool,
         loading: PropTypes.bool,
-        token: PropTypes.string
+        failed: PropTypes.bool,
+        redirectUri: PropTypes.string.isRequired,
+        authEndpoint: PropTypes.string.isRequired
     };
 
     static defaultProps = {
-        logged: null,
-        loading: null,
-        token: null
+        failed: false,
+        loading: false
     };
 
     constructor(props) {
         super(props);
         this.state = {
             username: '',
-            password: '',
-            wrongPass: false
+            password: ''
         };
     }
 
@@ -40,32 +35,26 @@ class SignIn extends Component {
         this.props.requestToken();
     }
 
-    componentWillReceiveProps(nextProps) {
-        const {token, logged} = nextProps;
-        if (token || logged) {
-            this.props.history.push('/area');
-            return;
-        }
-        this.setState(
-            () => ({wrongPass: true, password: ''})
-        );
-    }
-
     handleSubmit() {
         const {username, password} = this.state;
         if (!username || !password) {
-            return this.setState(() => ({wrongPass: true}));
+            return;
         }
-        return this.props.requestLogin({username, password});
+        const {redirectUri, authEndpoint} = this.props;
+        this.props.requestLogin({
+            username,
+            password
+        }, authEndpoint, redirectUri);
     }
 
-    showInputsAndButton() {
-        const {wrongPass, username, password} = this.state;
+    renderContent() {
+        const {failed} = this.props;
+        const {username, password} = this.state;
         return (
-            <View>
+            <Fragment>
                 <InputField
-                    inputStyle={styles.singIn.input.field}
-                    wrapperStyle={styles.singIn.input.wrapper}
+                    inputStyle={styles.input}
+                    wrapperStyle={styles.inputWrapper}
                     label="Usuario"
                     keyboardType="default"
                     highlightColor="#ff4281"
@@ -74,8 +63,8 @@ class SignIn extends Component {
                     value={username}
                 />
                 <InputField
-                    inputStyle={styles.singIn.input.field}
-                    wrapperStyle={styles.singIn.input.wrapper}
+                    inputStyle={styles.input}
+                    wrapperStyle={styles.inputWrapper}
                     label="Contraseña"
                     keyboardType="default"
                     highlightColor="#ff4281"
@@ -84,35 +73,31 @@ class SignIn extends Component {
                     value={password}
                     secureTextEntry
                 />
-                {wrongPass &&
-                    <TextStrong style={styles.singIn.incorrectSingInText}>
-                        Usuario y/o contraseña inválidos
-                    </TextStrong>
-                }
+                {failed &&
+                <TextStrong style={styles.wrongPasswordText}>
+                    Usuario y/o contraseña inválidos
+                </TextStrong>}
                 <Button
                     title="Ingresar"
                     icon={getFontAwesome('lock')}
                     onPress={() => this.handleSubmit()}
                     rounded
                     primary
-                    buttonStyle={styles.singIn.submitButton}
+                    buttonStyle={styles.submitButton}
                 />
-            </View>
+            </Fragment>
         );
     }
 
     render() {
         const {loading} = this.props;
         return (
-            <View style={[styles.singIn.container, styles.container]}>
-                <Text style={styles.singIn.textTitle}>
-                    RFK
-                </Text>
-                <Text style={styles.singIn.textTitle}>
+            <View style={styles.container}>
+                <Text style={styles.text}>
                     Iniciar Sesión
                 </Text>
-                {loading && <ActivityIndicator animating size="large" color="#008BC7"/>}
-                {!loading && this.showInputsAndButton()}
+                {loading && <ActivityIndicator animating size="large" color="#008bc7"/>}
+                {!loading && this.renderContent()}
             </View>
         );
     }
@@ -121,11 +106,11 @@ class SignIn extends Component {
 export default connect(
     state => ({
         logged: state.session.logged,
-        loading: state.session.loading,
-        token: state.session.token
+        failed: state.session.failed,
+        loading: state.session.loading
     }),
     dispatch => ({
-        requestLogin: user => dispatch(requestLogin(user)),
+        requestLogin: (user, authEndpoint, redirectUri) => dispatch(requestLogin(user, authEndpoint, redirectUri)),
         requestToken: () => dispatch(requestToken())
     })
 )(SignIn);

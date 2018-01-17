@@ -1,15 +1,19 @@
-/* eslint-disable import/prefer-default-export */
 import {call, put} from 'redux-saga/effects';
 
 import {handleError} from '../actions/common';
-import {notifyLoginFail, notifyLoginSucceeded, notifyTokenReceived} from '../actions/session';
+import {requestToken, notifyLoginFail, notifyLoginSucceeded, notifyTokenReceived} from '../actions/session';
 
-import {SessionService} from '../services';
+import SessionService from '../services';
 
-export function* signIn(user) {
+export function* signIn({user, authEndpoint, redirectUri}) {
     try {
-        const logged = yield call(SessionService.signIn, user);
-        yield logged ? put(notifyLoginSucceeded()) : put(notifyLoginFail());
+        const logged = yield call(SessionService.signIn, user, authEndpoint, redirectUri);
+        if (logged) {
+            yield put(requestToken());
+            yield put(notifyLoginSucceeded());
+        } else {
+            yield put(notifyLoginFail());
+        }
     } catch (err) {
         yield put(handleError(err));
     }
