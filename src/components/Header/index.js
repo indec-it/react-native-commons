@@ -1,17 +1,17 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {Image, Text, View} from 'react-native';
-import {Icon} from 'react-native-elements';
-import {Link} from 'react-router-native';
 
-import {getFontAwesome, Row} from '../../index';
+import NavItem from './NavItem';
 import styles from './styles';
 
 const brandImageDefault = require('../../images/brand.png');
 
-const Header = ({routes, text, brandImage}) => (
+const Header = ({
+    routes, text, brandImage, style
+}) => (
     <Fragment>
-        <View style={styles.brandContainer}>
+        <View style={[styles.brandContainer, style.brandContainer]}>
             <View>
                 <Image source={brandImage} style={styles.brandImage}/>
             </View>
@@ -23,20 +23,14 @@ const Header = ({routes, text, brandImage}) => (
         </View>
         <View style={styles.navContainer}>
             {routes && routes.map(route => (
-                <Row key={route.key}>
-                    <Icon {...getFontAwesome(route.icon, styles.navIcon)}/>
-                    <Link to={route.path}>
-                        <Text style={styles.navText}>
-                            {route.text}
-                        </Text>
-                    </Link>
-                </Row>
+                <NavItem key={route.key} route={route}/>
             ))}
         </View>
     </Fragment>
 );
 
 Header.propTypes = {
+    style: PropTypes.shape({}),
     brandImage: PropTypes.number,
     text: PropTypes.string.isRequired,
     routes: PropTypes.arrayOf(PropTypes.shape({
@@ -48,7 +42,8 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-    brandImage: brandImageDefault
+    brandImage: brandImageDefault,
+    style: {}
 };
 
 export default Header;
