@@ -12,6 +12,7 @@
   "dependencies": {},
   "devDependencies": {
     "@commitlint/cli": "^6.0.2",
+    "@commitlint/travis-cli": "^6.0.2",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.2",
     "babel-plugin-lodash": "^3.2.11",
