@@ -1,4 +1,6 @@
-export default {
+import {StyleSheet} from 'react-native';
+
+export default StyleSheet.create({
     brandContainer: {
         height: 96,
         paddingRight: 10,
@@ -6,7 +8,7 @@ export default {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#056a8e'
+        backgroundColor: '#004e84'
     },
     brandImage: {
         width: 200,
@@ -22,16 +24,18 @@ export default {
         paddingRight: 10,
         paddingLeft: 10,
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignItems: 'center',
-        backgroundColor: '#0da887'
+        backgroundColor: '#dee2e3'
+    },
+    navItem: {
+        alignItems: 'center'
     },
     navText: {
         fontSize: 18,
-        color: '#fff'
+        marginRight: 10
     },
     navIcon: {
-        color: '#fff',
         marginRight: 10
     }
-};
+});
