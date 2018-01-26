@@ -3,15 +3,11 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
-        minWidth: 768,
-        flexDirection: 'column'
-    },
-    image: {
-        width: 250,
-        height: 200
+        minWidth: 768
     },
     text: {
         fontSize: 20,
@@ -22,13 +18,16 @@ export default StyleSheet.create({
     wrongPasswordText: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: 20
-    },
-    input: {
-        height: 40
+        paddingTop: 20,
+        color: '#d00000'
     },
     inputWrapper: {
-        minWidth: 245
+        minWidth: 245,
+        paddingBottom: 0
+    },
+    textStyle: {
+        height: 50,
+        fontSize: 18
     },
     submitButton: {
         marginTop: 50
