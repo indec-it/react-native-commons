@@ -1,0 +1,5 @@
+{
+  "name": "@indec/react-native-commons/services",
+  "private": true,
+  "main": "../src/services/index.js"
+}
