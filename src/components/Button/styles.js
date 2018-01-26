@@ -1,5 +1,7 @@
+import {StyleSheet} from 'react-native';
+
 export default {
-    button: {
+    button: StyleSheet.create({
         button: {
             borderRadius: 4,
             minWidth: 250
@@ -17,8 +19,8 @@ export default {
             borderWidth: 1,
             borderColor: 'red'
         }
-    },
-    buttonText: {
+    }),
+    buttonText: StyleSheet.create({
         button: {},
         buttonDefault: {
             color: '#333333'
@@ -27,8 +29,8 @@ export default {
         buttonDanger: {
             color: 'red'
         }
-    },
-    buttonIcon: {
+    }),
+    buttonIcon: StyleSheet.create({
         button: {},
         buttonDefault: {
             color: '#333333'
@@ -37,5 +39,5 @@ export default {
         buttonDanger: {
             color: 'red'
         }
-    }
+    })
 };

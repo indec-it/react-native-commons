@@ -14,7 +14,7 @@ const getStyle = (template, primary, danger, style) => {
         computedStyle = template.buttonDefault;
     }
 
-    return Object.assign({}, template.button, computedStyle, style);
+    return [template.button, computedStyle, style];
 };
 
 const getIcon = (primary, danger, icon) => {
@@ -29,7 +29,7 @@ const getIcon = (primary, danger, icon) => {
     } else {
         computedStyle = styles.buttonIcon.buttonDefault;
     }
-    return Object.assign({}, icon, computedStyle);
+    return [icon, computedStyle];
 };
 
 const Button = ({
