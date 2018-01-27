@@ -1,3 +1,5 @@
 import SessionService from './session';
+import StorageService from './storage';
 
-export default SessionService;
+export {SessionService};
+export {StorageService};
