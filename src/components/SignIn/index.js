@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import {ActivityIndicator, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import InputField from '@indec/react-native-md-textinput';
+import {Icon} from 'react-native-elements';
 
-import {Button, getFontAwesome, TextStrong} from '../..';
+import {Button, getFontAwesome} from '../..';
 import {requestLogin, requestToken} from '../../actions/session';
 import styles from './styles';
 
@@ -53,36 +54,34 @@ class SignIn extends Component {
         return (
             <Fragment>
                 <InputField
-                    inputStyle={styles.input}
                     wrapperStyle={styles.inputWrapper}
+                    inputStyle={styles.textStyle}
                     label="Usuario"
                     keyboardType="default"
-                    highlightColor="#ff4281"
+                    highlightColor="#d00000"
                     autoCapitalize="none"
                     onChangeText={text => this.setState(() => ({username: text}))}
                     value={username}
                 />
                 <InputField
-                    inputStyle={styles.input}
                     wrapperStyle={styles.inputWrapper}
+                    inputStyle={styles.textStyle}
                     label="Contraseña"
                     keyboardType="default"
-                    highlightColor="#ff4281"
+                    highlightColor="#d00000"
                     autoCapitalize="none"
                     onChangeText={text => this.setState(() => ({password: text}))}
                     value={password}
                     secureTextEntry
                 />
                 {failed &&
-                <TextStrong style={styles.wrongPasswordText}>
+                <Text style={styles.wrongPasswordText}>
                     Usuario y/o contraseña inválidos
-                </TextStrong>}
+                </Text>}
                 <Button
                     title="Ingresar"
-                    icon={getFontAwesome('lock')}
                     onPress={() => this.handleSubmit()}
                     rounded
-                    primary
                     buttonStyle={styles.submitButton}
                 />
             </Fragment>
@@ -93,6 +92,7 @@ class SignIn extends Component {
         const {loading} = this.props;
         return (
             <View style={styles.container}>
+                <Icon {...getFontAwesome('lock')} size={32}/>
                 <Text style={styles.text}>
                     Iniciar Sesión
                 </Text>
