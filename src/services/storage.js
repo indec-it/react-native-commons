@@ -21,7 +21,7 @@ export default class StorageService {
     async findAll() {
         const keys = await getAllKeys(this.prefix);
         if (isEmpty(keys)) {
-            return null;
+            return [];
         }
         return map(await AsyncStorage.multiGet(keys), result => JSON.parse(result[1]));
     }
