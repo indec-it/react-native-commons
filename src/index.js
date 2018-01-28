@@ -1,13 +1,14 @@
-import Button from './components/Button/index';
-import Col from './components/Col/index';
-import Grid from './components/Grid/index';
-import Header from './components/Header/index';
-import LoadingIndicator from './components/LoadingIndicator/index';
-import Row from './components/Row/index';
-import SectionTitle from './components/SectionTitle/index';
-import TextError from './components/TextError/index';
-import TextStrong from './components/TextStrong/index';
-import SignIn from './components/SignIn/index';
+import Button from './components/Button';
+import Col from './components/Col';
+import Grid from './components/Grid';
+import Header from './components/Header';
+import LoadingIndicator from './components/LoadingIndicator';
+import Row from './components/Row';
+import SectionTitle from './components/SectionTitle';
+import TextError from './components/TextError';
+import TextStrong from './components/TextStrong';
+import Title from './components/Title';
+import SignIn from './components/SignIn';
 
 export const getFontAwesome = (name, color, size) => ({
     name, type: 'font-awesome', color, size
@@ -21,4 +22,5 @@ export {Row};
 export {SectionTitle};
 export {TextError};
 export {TextStrong};
+export {Title};
 export {SignIn};
