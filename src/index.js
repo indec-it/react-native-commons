@@ -8,6 +8,7 @@ import SectionTitle from './components/SectionTitle/index';
 import TextError from './components/TextError/index';
 import TextStrong from './components/TextStrong/index';
 import SignIn from './components/SignIn/index';
+import childrenPropType from './components/childrenPropType';
 
 export const getFontAwesome = (name, color, size) => ({
     name, type: 'font-awesome', color, size
@@ -22,3 +23,4 @@ export {SectionTitle};
 export {TextError};
 export {TextStrong};
 export {SignIn};
+export {childrenPropType};
