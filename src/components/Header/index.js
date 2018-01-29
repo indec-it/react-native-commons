@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {Image, Text, View} from 'react-native';
 
 import NavItem from './NavItem';
@@ -8,7 +9,7 @@ import styles from './styles';
 const brandImageDefault = require('../../images/brand.png');
 
 const Header = ({
-    routes, text, brandImage, style
+    routes, text, brandImage, style, token
 }) => (
     <Fragment>
         <View style={[styles.brandContainer, style.brandContainer]}>
@@ -21,11 +22,12 @@ const Header = ({
                 </Text>
             </View>
         </View>
+        {token &&
         <View style={styles.navContainer}>
             {routes && routes.map(route => (
                 <NavItem key={route.key} route={route}/>
             ))}
-        </View>
+        </View>}
     </Fragment>
 );
 
@@ -38,12 +40,16 @@ Header.propTypes = {
         icon: PropTypes.string,
         text: PropTypes.string,
         path: PropTypes.string
-    })).isRequired
+    })).isRequired,
+    token: PropTypes.string
 };
 
 Header.defaultProps = {
     brandImage: brandImageDefault,
-    style: {}
+    style: {},
+    token: null
 };
 
-export default Header;
+export default connect(
+    state => ({token: state.session.token})
+)(Header);
