@@ -10,9 +10,9 @@ before_install:
   - "export TRAVIS_COMMIT_MSG=\"`git log --format=%B --no-merges -n 1`\""
 install:
   - yarn install
-  - commitlint-travis
 script:
   - npm test
+  - commitlint-travis
 cache:
   yarn: true
   directories:
