@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import {some} from 'lodash';
 
-import {childrenPropType, Row} from '../..';
+import Row from '../Row';
+import childrenPropType from '../childrenPropType';
+
 import styles from './styles';
 
 const isRow = children => some(Children.map(children, child => child.type === Row));
