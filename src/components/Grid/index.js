@@ -20,12 +20,13 @@ const Grid = ({children, style}) => (
 );
 
 Grid.propTypes = {
-    children: childrenPropType.isRequired,
+    children: childrenPropType,
     style: PropTypes.shape({})
 };
 
 Grid.defaultProps = {
-    style: {}
+    style: {},
+    children: []
 };
 
 export default Grid;
