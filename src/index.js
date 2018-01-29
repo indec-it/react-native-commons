@@ -9,6 +9,7 @@ import TextError from './components/TextError';
 import TextStrong from './components/TextStrong';
 import Title from './components/Title';
 import SignIn from './components/SignIn';
+import childrenPropType from './components/childrenPropType';
 
 export const getFontAwesome = (name, color, size) => ({
     name, type: 'font-awesome', color, size
@@ -24,3 +25,4 @@ export {TextError};
 export {TextStrong};
 export {Title};
 export {SignIn};
+export {childrenPropType};

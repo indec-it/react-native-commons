@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React, {Children} from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import {some} from 'lodash';
 
-import Row from '../Row';
+import {childrenPropType, Row} from '../..';
 import styles from './styles';
 
-const isRow = children => some(children, child => child.type === Row);
+const isRow = children => some(Children.map(children, child => child.type === Row));
 
 const Grid = ({children, style}) => (
     <View
@@ -20,11 +20,7 @@ const Grid = ({children, style}) => (
 );
 
 Grid.propTypes = {
-    children: PropTypes.oneOfType([
-        PropTypes.instanceOf(Component),
-        PropTypes.func,
-        PropTypes.array
-    ]).isRequired,
+    children: childrenPropType.isRequired,
     style: PropTypes.shape({})
 };
 
