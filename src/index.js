@@ -11,10 +11,8 @@ import TextStrong from './components/TextStrong';
 import Title from './components/Title';
 import SignIn from './components/SignIn';
 import childrenPropType from './components/childrenPropType';
+import getFontAwesome from './components/getFontAwesome';
 
-export const getFontAwesome = (name, color, size) => ({
-    name, type: 'font-awesome', color, size
-});
 export {Button};
 export {Col};
 export {Grid};
@@ -28,3 +26,4 @@ export {TextStrong};
 export {Title};
 export {SignIn};
 export {childrenPropType};
+export {getFontAwesome};

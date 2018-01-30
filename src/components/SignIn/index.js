@@ -5,8 +5,11 @@ import {connect} from 'react-redux';
 import InputField from '@indec/react-native-md-textinput';
 import {Icon} from 'react-native-elements';
 
-import {Button, getFontAwesome} from '../..';
 import {requestLogin, requestToken} from '../../actions/session';
+
+import Button from '../Button';
+import getFontAwesome from '../getFontAwesome';
+
 import styles from './styles';
 
 class SignIn extends Component {

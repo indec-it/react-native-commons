@@ -1,6 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
+
+import childrenPropType from '../childrenPropType';
 
 import styles from './styles';
 
@@ -11,11 +13,7 @@ const Row = ({children, style, size}) => (
 );
 
 Row.propTypes = {
-    children: PropTypes.oneOfType([
-        PropTypes.instanceOf(Component),
-        PropTypes.func,
-        PropTypes.array
-    ]).isRequired,
+    children: childrenPropType.isRequired,
     style: PropTypes.shape({}),
     size: PropTypes.number
 };

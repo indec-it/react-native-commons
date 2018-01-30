@@ -4,7 +4,10 @@ import {Text} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {Link} from 'react-router-native';
 
-import {getFontAwesome, Row, Col} from '../..';
+import Col from '../Col';
+import Row from '../Row';
+import getFontAwesome from '../getFontAwesome';
+
 import styles from './styles';
 
 const NavItem = ({route}) => (
