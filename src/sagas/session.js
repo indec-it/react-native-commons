@@ -3,7 +3,7 @@ import {call, put} from 'redux-saga/effects';
 import {handleError} from '../actions/common';
 import {requestToken, notifyLoginFail, notifyLoginSucceeded, notifyTokenReceived} from '../actions/session';
 
-import SessionService from '../services';
+import {SessionService} from '../services';
 
 export function* signIn({user, authEndpoint, redirectUri}) {
     try {
