@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Image, Text, View} from 'react-native';
 
+import stylePropType from '../../util/stylePropType';
+
 import NavItem from './NavItem';
 import styles from './styles';
 
@@ -32,8 +34,8 @@ const Header = ({
 );
 
 Header.propTypes = {
-    style: PropTypes.shape({}),
     brandImage: PropTypes.number,
+    style: stylePropType,
     text: PropTypes.string.isRequired,
     routes: PropTypes.arrayOf(PropTypes.shape({
         key: PropTypes.number,

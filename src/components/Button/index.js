@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Button as Btn} from 'react-native-elements';
 
+import stylePropType from '../../util/stylePropType';
+
 import styles from './styles';
 
 const getStyle = (template, primary, danger, style) => {
@@ -45,8 +47,8 @@ const Button = ({
 
 Button.propTypes = {
     icon: PropTypes.shape({}),
-    buttonStyle: PropTypes.shape({}),
-    style: PropTypes.shape({}),
+    buttonStyle: stylePropType,
+    style: stylePropType,
     primary: PropTypes.bool,
     danger: PropTypes.bool
 };

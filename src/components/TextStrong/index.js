@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Text} from 'react-native-elements';
 
+import stylePropType from '../../util/stylePropType';
+
 import styles from './styles';
 
 const TextStrong = ({style, children, ...elementProps}) => (
@@ -11,7 +13,7 @@ const TextStrong = ({style, children, ...elementProps}) => (
 );
 
 TextStrong.propTypes = {
-    style: PropTypes.shape({}),
+    style: stylePropType,
     children: PropTypes.string.isRequired
 };
 
