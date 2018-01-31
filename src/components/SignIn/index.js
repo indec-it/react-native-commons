@@ -8,7 +8,7 @@ import {Icon} from 'react-native-elements';
 import {requestLogin, requestToken} from '../../actions/session';
 
 import Button from '../Button';
-import getFontAwesome from '../getFontAwesome';
+import getFontAwesome from '../../util/getFontAwesome';
 
 import styles from './styles';
 

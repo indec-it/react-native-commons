@@ -6,7 +6,7 @@ import {Link} from 'react-router-native';
 
 import Col from '../Col';
 import Row from '../Row';
-import getFontAwesome from '../getFontAwesome';
+import getFontAwesome from '../../util/getFontAwesome';
 
 import styles from './styles';
 

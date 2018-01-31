@@ -1,10 +1,10 @@
 import React, {Children} from 'react';
-import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import {some} from 'lodash';
 
 import Row from '../Row';
-import childrenPropType from '../childrenPropType';
+import childrenPropType from '../../util/childrenPropType';
+import stylePropType from '../../util/stylePropType';
 
 import styles from './styles';
 
@@ -23,7 +23,7 @@ const Grid = ({children, style}) => (
 
 Grid.propTypes = {
     children: childrenPropType.isRequired,
-    style: PropTypes.shape({})
+    style: stylePropType
 };
 
 Grid.defaultProps = {
