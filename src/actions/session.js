@@ -1,12 +1,15 @@
 export const USER_LOGIN_REQUESTED = 'USER_LOGIN_REQUESTED';
 export const USER_LOGIN_SUCCEEDED = 'USER_LOGIN_SUCCEEDED';
 export const USER_LOGIN_FAILED = 'USER_LOGIN_FAILED';
+export const USER_LOGIN_DIFFERENT_TO_PREVIOUS = 'USER_LOGIN_DIFFERENT_TO_PREVIOUS';
 
-export const requestLogin = (user, authEndpoint, redirectUri) => ({
+export const requestLogin = (user, authEndpoint, redirectUri, userProfile, changeUser) => ({
     type: USER_LOGIN_REQUESTED,
     user,
     authEndpoint,
-    redirectUri
+    redirectUri,
+    userProfile,
+    changeUser
 });
 
 export const notifyLoginFail = () => ({
@@ -15,6 +18,10 @@ export const notifyLoginFail = () => ({
 
 export const notifyLoginSucceeded = () => ({
     type: USER_LOGIN_SUCCEEDED
+});
+
+export const notifyLoggedWithDifferentUser = () => ({
+    type: USER_LOGIN_DIFFERENT_TO_PREVIOUS
 });
 
 export const USER_TOKEN_REQUESTED = 'USER_TOKEN_REQUESTED';

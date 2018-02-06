@@ -6,11 +6,9 @@ import InputField from '@indec/react-native-md-textinput';
 import {Icon} from 'react-native-elements';
 
 import {requestLogin, requestToken} from '../../actions/session';
-
 import Button from '../Button';
 import imagePropType from '../../util/imagePropType';
 import getFontAwesome from '../../util/getFontAwesome';
-
 import styles from './styles';
 
 class SignIn extends Component {
@@ -19,15 +17,21 @@ class SignIn extends Component {
         requestToken: PropTypes.func.isRequired,
         loading: PropTypes.bool,
         failed: PropTypes.bool,
+        logged: PropTypes.bool,
         redirectUri: PropTypes.string.isRequired,
         authEndpoint: PropTypes.string.isRequired,
-        image: imagePropType
+        image: imagePropType,
+        userProfile: PropTypes.string,
+        differentUser: PropTypes.bool
     };
 
     static defaultProps = {
         failed: false,
         loading: false,
-        image: null
+        image: null,
+        logged: false,
+        userProfile: null,
+        differentUser: false
     };
 
     constructor(props) {
@@ -42,20 +46,35 @@ class SignIn extends Component {
         this.props.requestToken();
     }
 
+    hasUserAndPassword() {
+        const {username, password} = this.state;
+        return username && password;
+    }
+
     handleSubmit() {
         const {username, password} = this.state;
-        if (!username || !password) {
-            return;
+        if (this.hasUserAndPassword()) {
+            const {redirectUri, authEndpoint, userProfile} = this.props;
+            this.props.requestLogin({
+                username,
+                password
+            }, authEndpoint, redirectUri, userProfile);
         }
-        const {redirectUri, authEndpoint} = this.props;
-        this.props.requestLogin({
-            username,
-            password
-        }, authEndpoint, redirectUri);
+    }
+
+    continueChangeUser() {
+        const {username, password} = this.state;
+        if (this.hasUserAndPassword()) {
+            const {redirectUri, authEndpoint, userProfile} = this.props;
+            this.props.requestLogin({
+                username,
+                password
+            }, authEndpoint, redirectUri, userProfile, true);
+        }
     }
 
     renderContent() {
-        const {failed} = this.props;
+        const {failed, differentUser} = this.props;
         const {username, password} = this.state;
         return (
             <Fragment>
@@ -90,6 +109,19 @@ class SignIn extends Component {
                     rounded
                     buttonStyle={styles.submitButton}
                 />
+                {differentUser &&
+                <View style={styles.differentUserContainer}>
+                    <Text style={styles.differentUserText}>
+                        Está ingresando con un usuario diferente al último que inició sesión.{'\n'}
+                        De continuar con el login se perderán todas las encuestas que no hayan sido sincronizadas.{'\n'}
+                        Si desea continuar oprima el siguiente botón:{'\n'}
+                    </Text>
+                    <Button
+                        danger
+                        onPress={() => this.continueChangeUser()}
+                        title="Descartar encuestas del usuario anterior e ingresar al sistema"
+                    />
+                </View>}
             </Fragment>
         );
     }
@@ -114,10 +146,13 @@ export default connect(
     state => ({
         logged: state.session.logged,
         failed: state.session.failed,
-        loading: state.session.loading
+        loading: state.session.loading,
+        differentUser: state.session.differentUser
     }),
     dispatch => ({
-        requestLogin: (user, authEndpoint, redirectUri) => dispatch(requestLogin(user, authEndpoint, redirectUri)),
+        requestLogin: (user, authEndpoint, redirectUri, userProfile, changeUser) => dispatch(
+            requestLogin(user, authEndpoint, redirectUri, userProfile, changeUser)
+        ),
         requestToken: () => dispatch(requestToken())
     })
 )(SignIn);
