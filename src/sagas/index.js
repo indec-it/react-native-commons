@@ -1,5 +1,8 @@
-import {signIn, getToken} from './session';
+import {changeUser, getLastUserLogged, getToken, signIn} from './session';
 import {handleError} from './common';
 
-export {signIn, getToken};
+export {changeUser};
+export {getLastUserLogged};
+export {getToken};
 export {handleError};
+export {signIn};
