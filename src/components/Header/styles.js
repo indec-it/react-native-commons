@@ -14,6 +14,10 @@ export default StyleSheet.create({
         width: 200,
         height: 76
     },
+    pollImage: {
+        width: 85,
+        height: 76
+    },
     text: {
         fontWeight: 'bold',
         fontSize: 38,

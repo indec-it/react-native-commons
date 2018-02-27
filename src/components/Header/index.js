@@ -11,18 +11,23 @@ import styles from './styles';
 const brandImageDefault = require('../../images/brand.png');
 
 const Header = ({
-    routes, text, brandImage, style, token
+    routes, text, brandImage, style, token, pollImage
 }) => (
     <Fragment>
         <View style={[styles.brandContainer, style.brandContainer]}>
             <View>
                 <Image source={brandImage} style={styles.brandImage}/>
             </View>
+            {text &&
             <View>
                 <Text style={styles.text}>
                     {text}
                 </Text>
-            </View>
+            </View>}
+            {surveyLogo &&
+            <View>
+                <Image source={pollImage} style={styles.pollImage}/>
+            </View>}
         </View>
         {token &&
         <View style={styles.navContainer}>
@@ -35,8 +40,9 @@ const Header = ({
 
 Header.propTypes = {
     brandImage: PropTypes.number,
+    pollImage: PropTypes.number,
     style: stylePropType,
-    text: PropTypes.string.isRequired,
+    text: PropTypes.string,
     routes: PropTypes.arrayOf(PropTypes.shape({
         key: PropTypes.number,
         icon: PropTypes.string,
@@ -49,7 +55,9 @@ Header.propTypes = {
 Header.defaultProps = {
     brandImage: brandImageDefault,
     style: {},
-    token: null
+    token: null,
+    text: null,
+    surveyLogo: null
 };
 
 export default connect(
