@@ -6,8 +6,7 @@ export default StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff',
-        minWidth: 768
+        backgroundColor: '#fff'
     },
     text: {
         fontSize: 20,
