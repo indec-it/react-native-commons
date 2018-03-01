@@ -5,6 +5,7 @@ export default StyleSheet.create({
         fontSize: 25,
         fontWeight: 'bold',
         color: '#0A74A5',
-        marginTop: 40
+        marginTop: 40,
+        marginLeft: 15
     }
 });
