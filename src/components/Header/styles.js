@@ -14,6 +14,10 @@ export default StyleSheet.create({
         width: 200,
         height: 76
     },
+    rightImageStyle: {
+        width: 331,
+        height: 76
+    },
     text: {
         fontWeight: 'bold',
         fontSize: 38,
