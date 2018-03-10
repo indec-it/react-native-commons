@@ -39,11 +39,11 @@ const Header = ({
 );
 
 Header.propTypes = {
-    brandImage: PropTypes.oneOf([
+    brandImage: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.string
     ]),
-    rightImage: PropTypes.oneOf([
+    rightImage: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.string
     ]),
