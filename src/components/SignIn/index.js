@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
-import {ActivityIndicator, Text, View} from 'react-native';
+import {ActivityIndicator, Image, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import InputField from '@indec/react-native-md-textinput';
 import {Icon} from 'react-native-elements';
@@ -8,6 +8,7 @@ import {Icon} from 'react-native-elements';
 import {requestLogin, requestToken} from '../../actions/session';
 
 import Button from '../Button';
+import imagePropType from '../../util/imagePropType';
 import getFontAwesome from '../../util/getFontAwesome';
 
 import styles from './styles';
@@ -19,12 +20,14 @@ class SignIn extends Component {
         loading: PropTypes.bool,
         failed: PropTypes.bool,
         redirectUri: PropTypes.string.isRequired,
-        authEndpoint: PropTypes.string.isRequired
+        authEndpoint: PropTypes.string.isRequired,
+        image: imagePropType
     };
 
     static defaultProps = {
         failed: false,
-        loading: false
+        loading: false,
+        image: null
     };
 
     constructor(props) {
@@ -92,9 +95,10 @@ class SignIn extends Component {
     }
 
     render() {
-        const {loading} = this.props;
+        const {loading, image} = this.props;
         return (
             <View style={styles.container}>
+                {image && <Image source={image} style={styles.image}/>}
                 <Icon {...getFontAwesome('lock')} size={32}/>
                 <Text style={styles.text}>
                     Iniciar Sesión
