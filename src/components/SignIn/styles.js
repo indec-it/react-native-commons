@@ -8,6 +8,9 @@ export default StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff'
     },
+    image: {
+        marginBottom: 70
+    },
     text: {
         fontSize: 20,
         textAlign: 'center',
