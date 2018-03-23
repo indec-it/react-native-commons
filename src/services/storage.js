@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import {AsyncStorage} from 'react-native';
-import {castArray, filter, isEmpty, map, startsWith} from 'lodash';
+import {castArray, filter, isEmpty, map, size, startsWith} from 'lodash';
 
 const getAllKeys = async prefix => filter(
     await AsyncStorage.getAllKeys(),
@@ -83,5 +83,13 @@ export default class StorageService {
             return null;
         }
         return AsyncStorage.multiRemove(keys);
+    }
+
+    /**
+     * Retrieves the count of items into the collection.
+     * @returns {Promise<Number>} A promise with the count of items into the collection.
+     */
+    async count() {
+        return size(await getAllKeys(this.prefix));
     }
 }
