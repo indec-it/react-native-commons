@@ -1,16 +1,11 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
-import {ActivityIndicator, Image, Text, View} from 'react-native';
+import {ActivityIndicator, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import InputField from '@indec/react-native-md-textinput';
-import {Icon} from 'react-native-elements';
 
 import {requestLogin, requestToken} from '../../actions/session';
-
 import Button from '../Button';
-import imagePropType from '../../util/imagePropType';
-import getFontAwesome from '../../util/getFontAwesome';
-
 import styles from './styles';
 
 class SignIn extends Component {
@@ -21,13 +16,15 @@ class SignIn extends Component {
         failed: PropTypes.bool,
         redirectUri: PropTypes.string.isRequired,
         authEndpoint: PropTypes.string.isRequired,
-        image: imagePropType
+        userProfile: PropTypes.string,
+        differentUser: PropTypes.bool
     };
 
     static defaultProps = {
         failed: false,
         loading: false,
-        image: null
+        userProfile: null,
+        differentUser: false
     };
 
     constructor(props) {
@@ -42,20 +39,35 @@ class SignIn extends Component {
         this.props.requestToken();
     }
 
+    hasUserAndPassword() {
+        const {username, password} = this.state;
+        return username && password;
+    }
+
     handleSubmit() {
         const {username, password} = this.state;
-        if (!username || !password) {
-            return;
+        if (this.hasUserAndPassword()) {
+            const {redirectUri, authEndpoint, userProfile} = this.props;
+            this.props.requestLogin({
+                username,
+                password
+            }, authEndpoint, redirectUri, userProfile);
         }
-        const {redirectUri, authEndpoint} = this.props;
-        this.props.requestLogin({
-            username,
-            password
-        }, authEndpoint, redirectUri);
+    }
+
+    continueChangeUser() {
+        const {username, password} = this.state;
+        if (this.hasUserAndPassword()) {
+            const {redirectUri, authEndpoint, userProfile} = this.props;
+            this.props.requestLogin({
+                username,
+                password
+            }, authEndpoint, redirectUri, userProfile, true);
+        }
     }
 
     renderContent() {
-        const {failed} = this.props;
+        const {failed, differentUser} = this.props;
         const {username, password} = this.state;
         return (
             <Fragment>
@@ -90,20 +102,29 @@ class SignIn extends Component {
                     rounded
                     buttonStyle={styles.submitButton}
                 />
+                {differentUser &&
+                <Fragment>
+                    <Text style={styles.wrongPasswordText}>
+                        Está ingresando con un usuario diferente al último que inició sesión.{'\n'}
+                        De continuar con el login se perderán todas las encuestas que no hayan sido sincronizadas.{'\n'}
+                        Si desea continuar toque el siguiente hipervínculo:{'\n'}
+                    </Text>
+                    <Text onPress={() => this.continueChangeUser()} style={styles.cleanSurveysText}>
+                        Descartar encuestas del usuario anterior e ingresar al sistema
+                    </Text>
+                </Fragment>}
             </Fragment>
         );
     }
 
     render() {
-        const {loading, image} = this.props;
+        const {loading} = this.props;
         return (
             <View style={styles.container}>
-                {image && <Image source={image} style={styles.image}/>}
-                <Icon {...getFontAwesome('lock')} size={32}/>
                 <Text style={styles.text}>
                     Iniciar Sesión
                 </Text>
-                {loading && <ActivityIndicator animating size="large" color="#008bc7"/>}
+                {loading && <ActivityIndicator animating color="#008bc7"/>}
                 {!loading && this.renderContent()}
             </View>
         );
@@ -112,12 +133,14 @@ class SignIn extends Component {
 
 export default connect(
     state => ({
-        logged: state.session.logged,
         failed: state.session.failed,
-        loading: state.session.loading
+        loading: state.session.loading,
+        differentUser: state.session.differentUser
     }),
     dispatch => ({
-        requestLogin: (user, authEndpoint, redirectUri) => dispatch(requestLogin(user, authEndpoint, redirectUri)),
+        requestLogin: (user, authEndpoint, redirectUri, userProfile, changeUser) => dispatch(
+            requestLogin(user, authEndpoint, redirectUri, userProfile, changeUser)
+        ),
         requestToken: () => dispatch(requestToken())
     })
 )(SignIn);

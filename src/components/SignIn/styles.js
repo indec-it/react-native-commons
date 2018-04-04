@@ -6,20 +6,19 @@ export default StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff'
-    },
-    image: {
-        marginBottom: 70
+        backgroundColor: '#fff',
+        paddingLeft: 10,
+        paddingRight: 10
     },
     text: {
         fontSize: 20,
         textAlign: 'center',
-        marginTop: 50,
-        marginBottom: 50
+        marginTop: 40,
+        marginBottom: 20
     },
     wrongPasswordText: {
-        justifyContent: 'center',
         alignItems: 'center',
+        justifyContent: 'center',
         paddingTop: 20,
         color: '#d00000'
     },
@@ -28,10 +27,20 @@ export default StyleSheet.create({
         paddingBottom: 0
     },
     textStyle: {
-        height: 50,
+        height: 40,
         fontSize: 18
     },
     submitButton: {
-        marginTop: 50
+        marginTop: 40,
+        borderWidth: 1,
+        borderColor: '#c7c7c7',
+        backgroundColor: '#f7f7f7'
+    },
+    cleanSurveysText: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 5,
+        color: '#004e84',
+        textAlign: 'center'
     }
 });
