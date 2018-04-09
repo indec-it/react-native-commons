@@ -2,9 +2,9 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Image, Text, View} from 'react-native';
+import {isEmpty} from 'lodash';
 
 import stylePropType from '../../util/stylePropType';
-
 import NavItem from './NavItem';
 import styles from './styles';
 
@@ -29,9 +29,9 @@ const Header = ({
                 <Image source={rightImage} style={styles.rightImageStyle}/>
             </View>}
         </View>
-        {token &&
+        {token && !isEmpty(routes) &&
         <View style={styles.navContainer}>
-            {routes && routes.map(route => (
+            {routes.map(route => (
                 <NavItem key={route.key} route={route}/>
             ))}
         </View>}
@@ -54,7 +54,7 @@ Header.propTypes = {
         icon: PropTypes.string,
         text: PropTypes.string,
         path: PropTypes.string
-    })).isRequired,
+    })),
     token: PropTypes.string
 };
 
@@ -63,7 +63,8 @@ Header.defaultProps = {
     style: {},
     token: null,
     text: null,
-    rightImage: null
+    rightImage: null,
+    routes: []
 };
 
 export default connect(
