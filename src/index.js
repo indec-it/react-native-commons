@@ -1,3 +1,4 @@
+import Alert from './components/Alert';
 import Button from './components/Button';
 import Col from './components/Col';
 import Grid from './components/Grid';
@@ -11,6 +12,7 @@ import TextStrong from './components/TextStrong';
 import Title from './components/Title';
 import SignIn from './components/SignIn';
 
+export {Alert};
 export {Button};
 export {Col};
 export {Grid};
