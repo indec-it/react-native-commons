@@ -1,12 +1,15 @@
-import {assignWith, clone} from 'lodash';
+import {mapKeys} from 'lodash';
 
 export default (baseStyles, styles) => {
     if (!styles) {
         return baseStyles;
     }
-    return assignWith(
-        clone(baseStyles),
-        styles,
-        (baseStyle, style) => [baseStyle, style]
-    );
+
+    const finalStyles = {...baseStyles};
+
+    mapKeys(styles, (value, field) => {
+        finalStyles[field] = value || baseStyles[field];
+    });
+
+    return finalStyles;
 };
