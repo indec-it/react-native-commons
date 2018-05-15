@@ -11,6 +11,11 @@ export default {
             marginTop: 20,
             borderColor: '#e00000'
         },
+        alertWarning: {
+            borderWidth: 1,
+            marginTop: 20,
+            borderColor: '#fffb33'
+        },
         alertSuccess: {
             borderWidth: 1,
             marginTop: 20,
