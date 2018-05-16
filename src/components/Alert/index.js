@@ -6,12 +6,14 @@ import stylePropType from '../../util/stylePropType';
 
 import styles from './styles';
 
-const getStyle = (template, success, danger, style) => {
+const getStyle = (template, success, danger, warning, style) => {
     let computedStyle;
     if (success) {
         computedStyle = template.alertSuccess;
     } else if (danger) {
         computedStyle = template.alertDanger;
+    } else if (warning) {
+        computedStyle = template.alertWarning;
     } else {
         computedStyle = template.alertDefault;
     }
@@ -19,10 +21,10 @@ const getStyle = (template, success, danger, style) => {
 };
 
 const Alert = ({
-    success, danger, alertStyle, style, children, ...elementProps
+    success, danger, warning, alertStyle, style, children, ...elementProps
 }) => (
-    <View style={getStyle(styles.alert, success, danger, alertStyle)}>
-        <Text style={getStyle(styles.alertText, success, danger, style)} {...elementProps}>
+    <View style={getStyle(styles.alert, success, danger, warning, alertStyle)}>
+        <Text style={getStyle(styles.alertText, success, danger, warning, style)} {...elementProps}>
             {children}
         </Text>
     </View>
@@ -33,6 +35,7 @@ Alert.propTypes = {
     style: stylePropType,
     success: PropTypes.bool,
     danger: PropTypes.bool,
+    warning: PropTypes.bool,
     children: PropTypes.string.isRequired
 };
 
@@ -40,7 +43,8 @@ Alert.defaultProps = {
     alertStyle: {},
     style: {},
     success: false,
-    danger: false
+    danger: false,
+    warning: false
 };
 
 export default Alert;
