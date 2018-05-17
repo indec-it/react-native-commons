@@ -1,16 +1,41 @@
 import {call, put} from 'redux-saga/effects';
+import {SurveysService} from '@indec/react-native-survey-commons/services';
 
 import {handleError} from '../actions/common';
-import {requestToken, notifyLoginFail, notifyLoginSucceeded, notifyTokenReceived} from '../actions/session';
-
+import {
+    requestToken,
+    notifyLoginFail,
+    notifyLoginSucceeded,
+    notifyTokenReceived,
+    notifyLoggedWithDifferentUser
+} from '../actions/session';
 import {SessionService} from '../services';
 
-export function* signIn({user, authEndpoint, redirectUri}) {
+export function* signIn({
+    user, authEndpoint, redirectUri, userProfile, changeUser
+}) {
     try {
-        const logged = yield call(SessionService.signIn, user, authEndpoint, redirectUri);
+        const {logged, differentUser} = yield call(
+            SessionService.signIn,
+            user,
+            authEndpoint,
+            redirectUri,
+            userProfile,
+            changeUser
+        );
         if (logged) {
-            yield put(requestToken());
-            yield put(notifyLoginSucceeded());
+            if (!differentUser && !changeUser) {
+                yield put(requestToken());
+                yield put(notifyLoginSucceeded());
+            }
+            if (differentUser && !changeUser) {
+                yield put(notifyLoggedWithDifferentUser());
+            }
+            if (changeUser) {
+                yield call(SurveysService.removeAll);
+                yield put(requestToken());
+                yield put(notifyLoginSucceeded());
+            }
         } else {
             yield put(notifyLoginFail());
         }
@@ -27,4 +52,3 @@ export function* getToken() {
         yield put(handleError(err));
     }
 }
-

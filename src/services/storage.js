@@ -24,6 +24,14 @@ export default class StorageService {
         return JSON.parse(await AsyncStorage.getItem(createKey(this.prefix, id)));
     }
 
+    async findOne() {
+        const keys = await getAllKeys(this.prefix);
+        if (isEmpty(keys)) {
+            return [];
+        }
+        return JSON.parse(await AsyncStorage.getItem(keys[0]));
+    }
+
     /**
      * Fetch all the items on the collection.
      * @returns {Promise<Array<any>>} A promise with the found items.
