@@ -14,10 +14,11 @@ const TextStrong = ({style, children, ...elementProps}) => (
 
 TextStrong.propTypes = {
     style: stylePropType,
-    children: PropTypes.string.isRequired
+    children: PropTypes.string
 };
 
 TextStrong.defaultProps = {
+    children: null,
     style: {}
 };
 

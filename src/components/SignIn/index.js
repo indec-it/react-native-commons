@@ -19,7 +19,7 @@ const renderErrorMessages = (failed, showCompleteUserAndPassword) => (
             Usuario y/o contraseña inválidos
         </Text>}
         {showCompleteUserAndPassword &&
-        <Text>
+        <Text style={styles.errorText}>
             Debe completar el usuario y la contraseña
         </Text>}
     </View>
@@ -43,7 +43,6 @@ class SignIn extends Component {
     static propTypes = {
         requestLogin: PropTypes.func.isRequired,
         requestToken: PropTypes.func.isRequired,
-        requestLastUserLogged: PropTypes.func.isRequired,
         loading: PropTypes.bool,
         failed: PropTypes.bool,
         logged: PropTypes.bool,

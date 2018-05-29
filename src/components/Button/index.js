@@ -31,7 +31,7 @@ const getIcon = (primary, danger, icon) => {
     } else {
         computedStyle = styles.buttonIcon.buttonDefault;
     }
-    return [icon, computedStyle];
+    return {...icon, style: computedStyle};
 };
 
 const Button = ({
