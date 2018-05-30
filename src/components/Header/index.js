@@ -5,6 +5,7 @@ import {Image, Text, View} from 'react-native';
 import {isEmpty} from 'lodash';
 
 import stylePropType from '../../util/stylePropType';
+import routePropType from '../../util/routePropType';
 import NavItem from './NavItem';
 import styles from './styles';
 
@@ -49,12 +50,7 @@ Header.propTypes = {
     ]),
     style: stylePropType,
     text: PropTypes.string,
-    routes: PropTypes.arrayOf(PropTypes.shape({
-        key: PropTypes.number,
-        icon: PropTypes.string,
-        text: PropTypes.string,
-        path: PropTypes.string
-    })),
+    routes: PropTypes.arrayOf(routePropType).isRequired,
     token: PropTypes.string
 };
 
@@ -63,8 +59,7 @@ Header.defaultProps = {
     style: {},
     token: null,
     text: null,
-    rightImage: null,
-    routes: []
+    rightImage: null
 };
 
 export default connect(

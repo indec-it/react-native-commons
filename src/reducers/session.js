@@ -1,4 +1,6 @@
 import {
+    LAST_USER_LOGGED_REQUESTED,
+    LAST_USER_LOGGED_SUCCEEDED,
     USER_LOGIN_FAILED,
     USER_LOGIN_REQUESTED,
     USER_LOGIN_SUCCEEDED,
@@ -8,6 +10,10 @@ import {
 
 export default function (state = {loading: false, failed: false}, action) {
     switch (action.type) {
+        case LAST_USER_LOGGED_REQUESTED:
+            return {...state, lastUserLogged: null};
+        case LAST_USER_LOGGED_SUCCEEDED:
+            return {...state, lastUserLogged: action.lastUserLogged};
         case USER_LOGIN_REQUESTED:
             return {
                 ...state, loading: true, logged: false, failed: false
