@@ -4,30 +4,53 @@ import {ActivityIndicator, Image, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import InputField from '@indec/react-native-md-textinput';
 import {Icon} from 'react-native-elements';
+import {isEmpty} from 'lodash';
 
 import {requestLogin, requestToken} from '../../actions/session';
-
 import Button from '../Button';
 import imagePropType from '../../util/imagePropType';
 import getFontAwesome from '../../util/getFontAwesome';
-
 import styles from './styles';
+
+const renderErrorMessages = (failed, showCompleteUserAndPassword) => (
+    <View style={styles.errorText}>
+        {failed &&
+        <Text>
+            Usuario y/o contraseña inválidos
+        </Text>}
+        {showCompleteUserAndPassword &&
+        <Text>
+            Debe completar el usuario y la contraseña
+        </Text>}
+    </View>
+);
 
 class SignIn extends Component {
     static propTypes = {
         requestLogin: PropTypes.func.isRequired,
         requestToken: PropTypes.func.isRequired,
+        requestLastUserLogged: PropTypes.func.isRequired,
         loading: PropTypes.bool,
         failed: PropTypes.bool,
+        logged: PropTypes.bool,
         redirectUri: PropTypes.string.isRequired,
         authEndpoint: PropTypes.string.isRequired,
+        userProfile: PropTypes.string,
+        lastUserLogged: PropTypes.string,
+        changeUserText: PropTypes.string,
         image: imagePropType
     };
 
     static defaultProps = {
         failed: false,
         loading: false,
-        image: null
+        image: null,
+        logged: false,
+        userProfile: null,
+        lastUserLogged: null,
+        changeUserText: `Está ingresando con un usuario diferente al último que inició sesión.{'\n'}
+                         De continuar con el login se perderán todas los datos que no hayan sido sincronizados.{'\n'}
+                         Si desea continuar toque el siguiente botón:{'\n'}`
     };
 
     constructor(props) {
@@ -42,21 +65,37 @@ class SignIn extends Component {
         this.props.requestToken();
     }
 
-    handleSubmit() {
+    requestLogin() {
+        const {redirectUri, authEndpoint, userProfile} = this.props;
         const {username, password} = this.state;
-        if (!username || !password) {
-            return;
-        }
-        const {redirectUri, authEndpoint} = this.props;
+        this.setState(() => ({showCompleteUserAndPassword: false, showChangeUserMessage: false}));
         this.props.requestLogin({
             username,
             password
-        }, authEndpoint, redirectUri);
+        }, authEndpoint, redirectUri, userProfile);
+    }
+
+    handleSubmit() {
+        const {username, password} = this.state;
+        if (isEmpty(username) || isEmpty(password)) {
+            return this.setState(() => ({showCompleteUserAndPassword: true, showChangeUserMessage: false}));
+        }
+        const {lastUserLogged} = this.props;
+        return lastUserLogged && lastUserLogged !== username
+            ? this.setState(() => ({showChangeUserMessage: true, showCompleteUserAndPassword: false}))
+            : this.requestLogin();
+    }
+
+    continueChangeUser() {
+        this.setState(() => ({showChangeUserMessage: false}));
+        this.requestLogin();
     }
 
     renderContent() {
-        const {failed} = this.props;
-        const {username, password} = this.state;
+        const {failed, changeUserText} = this.props;
+        const {
+            username, password, showChangeUserMessage, showCompleteUserAndPassword
+        } = this.state;
         return (
             <Fragment>
                 <InputField
@@ -80,16 +119,23 @@ class SignIn extends Component {
                     value={password}
                     secureTextEntry
                 />
-                {failed &&
-                <Text style={styles.wrongPasswordText}>
-                    Usuario y/o contraseña inválidos
-                </Text>}
+                {renderErrorMessages(failed, showCompleteUserAndPassword)}
                 <Button
                     title="Ingresar"
                     onPress={() => this.handleSubmit()}
                     rounded
                     buttonStyle={styles.submitButton}
                 />
+                {showChangeUserMessage &&
+                <View style={styles.changeUserContainer}>
+                    <Text style={styles.changeUserText}>{changeUserText}</Text>
+                    <Button
+                        title="Descartar datos del usuario anterior e ingresar al sistema"
+                        rounded
+                        danger
+                        onPress={() => this.continueChangeUser()}
+                    />
+                </View>}
             </Fragment>
         );
     }
@@ -103,8 +149,7 @@ class SignIn extends Component {
                 <Text style={styles.text}>
                     Iniciar Sesión
                 </Text>
-                {loading && <ActivityIndicator animating size="large" color="#008bc7"/>}
-                {!loading && this.renderContent()}
+                {loading ? <ActivityIndicator animating size="large" color="#008bc7"/> : this.renderContent()}
             </View>
         );
     }
@@ -114,10 +159,13 @@ export default connect(
     state => ({
         logged: state.session.logged,
         failed: state.session.failed,
-        loading: state.session.loading
+        loading: state.session.loading,
+        lastUserLogged: state.session.lastUserLogged
     }),
     dispatch => ({
-        requestLogin: (user, authEndpoint, redirectUri) => dispatch(requestLogin(user, authEndpoint, redirectUri)),
+        requestLogin: (user, authEndpoint, redirectUri, userProfile) => dispatch(
+            requestLogin(user, authEndpoint, redirectUri, userProfile)
+        ),
         requestToken: () => dispatch(requestToken())
     })
 )(SignIn);

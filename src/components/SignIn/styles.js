@@ -17,9 +17,9 @@ export default StyleSheet.create({
         marginTop: 50,
         marginBottom: 50
     },
-    wrongPasswordText: {
-        justifyContent: 'center',
+    errorText: {
         alignItems: 'center',
+        justifyContent: 'center',
         paddingTop: 20,
         color: '#d00000'
     },
@@ -33,5 +33,13 @@ export default StyleSheet.create({
     },
     submitButton: {
         marginTop: 50
+    },
+    changeUserContainer: {
+        marginTop: 10,
+        padding: 5
+    },
+    changeUserText: {
+        marginBottom: 15,
+        paddingLeft: 15
     }
 });

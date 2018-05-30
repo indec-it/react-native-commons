@@ -25,6 +25,18 @@ export default class StorageService {
     }
 
     /**
+     * Fetch first item on the collection.
+     * @returns {Promise<any>} A promise with the first item.
+     */
+    async findOne() {
+        const keys = await getAllKeys(this.prefix);
+        if (isEmpty(keys)) {
+            return null;
+        }
+        return JSON.parse(await AsyncStorage.getItem(keys[0]));
+    }
+
+    /**
      * Fetch all the items on the collection.
      * @returns {Promise<Array<any>>} A promise with the found items.
      */
@@ -79,9 +91,6 @@ export default class StorageService {
      */
     async removeAll() {
         const keys = await getAllKeys(this.prefix);
-        if (isEmpty(keys)) {
-            return null;
-        }
         return AsyncStorage.multiRemove(keys);
     }
 
