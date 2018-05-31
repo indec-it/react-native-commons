@@ -91,6 +91,9 @@ export default class StorageService {
      */
     async removeAll() {
         const keys = await getAllKeys(this.prefix);
+        if (isEmpty(keys)) {
+            return null;
+        }
         return AsyncStorage.multiRemove(keys);
     }
 
