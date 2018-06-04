@@ -14,7 +14,7 @@ import styles from './styles';
 
 const renderErrorMessages = (failed, showCompleteUserAndPassword) => (
     <View style={styles.errorText}>
-        {failed &&
+        {failed && !showCompleteUserAndPassword &&
         <Text>
             Usuario y/o contraseña inválidos
         </Text>}
@@ -22,6 +22,20 @@ const renderErrorMessages = (failed, showCompleteUserAndPassword) => (
         <Text>
             Debe completar el usuario y la contraseña
         </Text>}
+    </View>
+);
+
+const changeUserMessage = changeUserText => (
+    <View style={styles.changeUserText}>
+        {changeUserText ? (
+            <Text>{changeUserText}</Text>
+        ) : (
+            <Text>
+                Está ingresando con un usuario diferente al último que inició sesión.{'\n'}
+                De continuar con el login se perderán todas los datos que no hayan sido sincronizados.{'\n'}
+                Si desea continuar toque el siguiente botón:
+            </Text>
+        )}
     </View>
 );
 
@@ -48,9 +62,7 @@ class SignIn extends Component {
         logged: false,
         userProfile: null,
         lastUserLogged: null,
-        changeUserText: `Está ingresando con un usuario diferente al último que inició sesión.{'\n'}
-                         De continuar con el login se perderán todas los datos que no hayan sido sincronizados.{'\n'}
-                         Si desea continuar toque el siguiente botón:{'\n'}`
+        changeUserText: null
     };
 
     constructor(props) {
@@ -68,7 +80,10 @@ class SignIn extends Component {
     requestLogin() {
         const {redirectUri, authEndpoint, userProfile} = this.props;
         const {username, password} = this.state;
-        this.setState(() => ({showCompleteUserAndPassword: false, showChangeUserMessage: false}));
+        this.setState(() => ({
+            showCompleteUserAndPassword: false,
+            showChangeUserMessage: false
+        }));
         this.props.requestLogin({
             username,
             password
@@ -78,11 +93,17 @@ class SignIn extends Component {
     handleSubmit() {
         const {username, password} = this.state;
         if (isEmpty(username) || isEmpty(password)) {
-            return this.setState(() => ({showCompleteUserAndPassword: true, showChangeUserMessage: false}));
+            return this.setState(() => ({
+                showCompleteUserAndPassword: true,
+                showChangeUserMessage: false
+            }));
         }
         const {lastUserLogged} = this.props;
         return lastUserLogged && lastUserLogged !== username
-            ? this.setState(() => ({showChangeUserMessage: true, showCompleteUserAndPassword: false}))
+            ? this.setState(() => ({
+                showChangeUserMessage: true,
+                showCompleteUserAndPassword: false
+            }))
             : this.requestLogin();
     }
 
@@ -128,7 +149,7 @@ class SignIn extends Component {
                 />
                 {showChangeUserMessage &&
                 <View style={styles.changeUserContainer}>
-                    <Text style={styles.changeUserText}>{changeUserText}</Text>
+                    {changeUserMessage(changeUserText)}
                     <Button
                         title="Descartar datos del usuario anterior e ingresar al sistema"
                         rounded
