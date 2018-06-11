@@ -6,8 +6,10 @@ git:
 node_js:
   - "6"
   - "8"
+  - "10"
 before_install:
   - "export TRAVIS_COMMIT_MSG=\"`git log --format=%B --no-merges -n 1`\""
+  - if [[ `npm -v` == 3* ]]; then npm i -g npm; fi
 install:
   - yarn install
 script:
