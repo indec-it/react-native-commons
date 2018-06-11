@@ -1,7 +1,8 @@
-import {concat, isNil} from 'lodash';
+import {concat, isNil, filter} from 'lodash';
 
-const composeStyles = (baseStyles, styles) => (
-    isNil(styles) ? baseStyles : concat(baseStyles, styles)
+const composeStyles = (baseStyles, ...styles) => concat(
+    baseStyles,
+    filter(styles, style => !isNil(style))
 );
 
 export default composeStyles;
