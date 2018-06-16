@@ -20,17 +20,8 @@ export function* clearSession() {
     }
 }
 
-export function* changeUser({userProfile}) {
-    try {
-        yield call(SessionService.removePreviousUserAndSave, userProfile);
-        yield put(userChanged());
-    } catch (err) {
-        yield put(handleError(err));
-    }
-}
-
 export function* signIn({
-    user, authEndpoint, redirectUri, userProfile
+    user, authEndpoint, redirectUri
 }) {
     try {
         const logged = yield call(
@@ -40,9 +31,10 @@ export function* signIn({
             redirectUri
         );
         if (logged) {
-            const latUserLogged = yield call(SessionService.getLastUserLogged);
-            if (latUserLogged && latUserLogged.username !== user.username) {
-                yield call(changeUser, {userProfile});
+            const lastUserLogged = yield call(SessionService.getLastUserLogged);
+            if (!lastUserLogged || lastUserLogged.username !== user.username) {
+                yield call(SessionService.changeUser);
+                yield put(userChanged());
                 yield put(requestClearUserData());
             }
             yield put(requestToken());
