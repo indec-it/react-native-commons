@@ -1,9 +1,11 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
-import {ActivityIndicator, Image, Text, View} from 'react-native';
+import {
+    ActivityIndicator, Image, Text, View
+} from 'react-native';
 import {connect} from 'react-redux';
-import InputField from '@indec/react-native-md-textinput';
 import {Icon} from 'react-native-elements';
+import InputField from '@indec/react-native-md-textinput';
 import {isEmpty} from 'lodash';
 
 import {requestLogin, requestToken} from '../../actions/session';
@@ -14,25 +16,31 @@ import styles from './styles';
 
 const renderErrorMessages = (failed, showCompleteUserAndPassword) => (
     <View style={styles.errorText}>
-        {failed && !showCompleteUserAndPassword &&
-        <Text>
-            Usuario y/o contraseña inválidos
-        </Text>}
-        {showCompleteUserAndPassword &&
-        <Text style={styles.errorText}>
-            Debe completar el usuario y la contraseña
-        </Text>}
+        {failed && !showCompleteUserAndPassword && (
+            <Text>
+                Usuario y/o contraseña inválidos
+            </Text>
+        )}
+        {showCompleteUserAndPassword && (
+            <Text style={styles.errorText}>
+                Debe completar el usuario y la contraseña
+            </Text>
+        )}
     </View>
 );
 
 const changeUserMessage = changeUserText => (
     <View style={styles.changeUserText}>
         {changeUserText ? (
-            <Text>{changeUserText}</Text>
+            <Text>
+                {changeUserText}
+            </Text>
         ) : (
             <Text>
-                Está ingresando con un usuario diferente al último que inició sesión.{'\n'}
-                De continuar con el login se perderán todas los datos que no hayan sido sincronizados.{'\n'}
+                Está ingresando con un usuario diferente al último que inició sesión.
+                {'\n'}
+                De continuar con el login se perderán todas los datos que no hayan sido sincronizados.
+                {'\n'}
                 Si desea continuar toque el siguiente botón:
             </Text>
         )}
@@ -146,16 +154,17 @@ class SignIn extends Component {
                     rounded
                     buttonStyle={styles.submitButton}
                 />
-                {showChangeUserMessage &&
-                <View style={styles.changeUserContainer}>
-                    {changeUserMessage(changeUserText)}
-                    <Button
-                        title="Descartar datos del usuario anterior e ingresar al sistema"
-                        rounded
-                        danger
-                        onPress={() => this.continueChangeUser()}
-                    />
-                </View>}
+                {showChangeUserMessage && (
+                    <View style={styles.changeUserContainer}>
+                        {changeUserMessage(changeUserText)}
+                        <Button
+                            title="Descartar datos del usuario anterior e ingresar al sistema"
+                            rounded
+                            danger
+                            onPress={() => this.continueChangeUser()}
+                        />
+                    </View>
+                )}
             </Fragment>
         );
     }

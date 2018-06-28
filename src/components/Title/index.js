@@ -5,7 +5,9 @@ import {Text} from 'react-native';
 import styles from './styles';
 
 const Title = ({children}) => (
-    <Text style={styles.title}>{children}</Text>
+    <Text style={styles.title}>
+        {children}
+    </Text>
 );
 
 Title.propTypes = {

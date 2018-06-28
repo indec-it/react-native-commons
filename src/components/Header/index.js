@@ -19,23 +19,26 @@ const Header = ({
             <View>
                 <Image source={brandImage} style={styles.brandImage}/>
             </View>
-            {text &&
-            <View>
-                <Text style={styles.text}>
-                    {text}
-                </Text>
-            </View>}
-            {rightImage &&
-            <View>
-                <Image source={rightImage} style={styles.rightImageStyle}/>
-            </View>}
+            {text && (
+                <View>
+                    <Text style={styles.text}>
+                        {text}
+                    </Text>
+                </View>
+            )}
+            {rightImage && (
+                <View>
+                    <Image source={rightImage} style={styles.rightImageStyle}/>
+                </View>
+            )}
         </View>
-        {token && !isEmpty(routes) &&
-        <View style={styles.navContainer}>
-            {routes.map(route => (
-                <NavItem key={route.key} route={route}/>
-            ))}
-        </View>}
+        {token && !isEmpty(routes) && (
+            <View style={styles.navContainer}>
+                {routes.map(route => (
+                    <NavItem key={route.key} route={route}/>
+                ))}
+            </View>
+        )}
     </Fragment>
 );
 
