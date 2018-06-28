@@ -1,5 +1,7 @@
 /* global window */
-import {isEmpty, isFunction, head, last} from 'lodash';
+import {
+    isEmpty, isFunction, head, last
+} from 'lodash';
 
 const triggerPressHandler = button => {
     const {onPress} = button;

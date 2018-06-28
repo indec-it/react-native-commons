@@ -1,6 +1,8 @@
 /* eslint-disable no-param-reassign */
 import {AsyncStorage} from 'react-native';
-import {castArray, filter, isEmpty, map, size, startsWith} from 'lodash';
+import {
+    castArray, filter, isEmpty, map, size, startsWith
+} from 'lodash';
 
 const getAllKeys = async prefix => filter(
     await AsyncStorage.getAllKeys(),

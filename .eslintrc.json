@@ -30,6 +30,13 @@
       "error",
       "never"
     ],
+    "lines-between-class-members": [
+      "error",
+      "always",
+      {
+        "exceptAfterSingleLine": true
+      }
+    ],
     "import/no-extraneous-dependencies": [
       "off"
     ],
@@ -40,6 +47,14 @@
     "max-len": [
       "error",
       120
+    ],
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [
+          ".js"
+        ]
+      }
     ],
     "react/jsx-tag-spacing": [
       "error",
@@ -55,14 +70,7 @@
       "error",
       4
     ],
-    "react/jsx-filename-extension": [
-      "warn",
-      {
-        "extensions": [
-          ".js"
-        ]
-      }
-    ],
+    "react/destructuring-assignment": "off",
     "jsx-a11y/anchor-is-valid": [
       "off"
     ]
