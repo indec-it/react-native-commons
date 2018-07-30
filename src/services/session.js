@@ -1,4 +1,5 @@
-import {LoginService, TokenService, http} from '@indec/heimdall/native';
+import {LoginService, TokenService} from '@indec/heimdall/native';
+import {decode} from 'jsonwebtoken';
 
 import StorageService from './storage';
 
@@ -31,8 +32,8 @@ export default class SessionService {
         return storage.save(user, u => u._id);
     }
 
-    static async removePreviousUserAndSave(userProfile) {
-        const currentUser = await http.get(userProfile);
+    static async changeUser() {
+        const currentUser = decode(await TokenService.getToken());
         await SessionService.removeAll();
         return SessionService.save(currentUser);
     }
