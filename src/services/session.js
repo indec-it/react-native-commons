@@ -1,5 +1,5 @@
 import {LoginService, TokenService} from '@indec/heimdall/native';
-import {decode} from 'jsonwebtoken';
+import decode from 'jwt-decode';
 
 import StorageService from './storage';
 
