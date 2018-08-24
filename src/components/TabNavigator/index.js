@@ -23,11 +23,11 @@ const TabNavigator = ({tabs, onChange, idSelected}) => (
 
 TabNavigator.propTypes = {
     tabs: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number,
+        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         label: PropTypes.string
     })).isRequired,
     onChange: PropTypes.func.isRequired,
-    idSelected: PropTypes.number.isRequired
+    idSelected: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
 };
 
 export default TabNavigator;
