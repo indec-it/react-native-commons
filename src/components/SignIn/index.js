@@ -15,9 +15,9 @@ import getFontAwesome from '../../util/getFontAwesome';
 import styles from './styles';
 
 const renderErrorMessages = (failed, showCompleteUserAndPassword) => (
-    <View style={styles.errorText}>
+    <View>
         {failed && !showCompleteUserAndPassword && (
-            <Text>
+            <Text style={styles.errorText}>
                 Usuario y/o contraseña inválidos
             </Text>
         )}
