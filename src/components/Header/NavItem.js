@@ -5,7 +5,7 @@ import {Text} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {Link} from 'react-router-native';
 
-import {requestToken} from '../../actions/session';
+import {requestFetchToken} from '../../actions/session';
 import Col from '../Col';
 import Row from '../Row';
 import getFontAwesome from '../../util/getFontAwesome';
@@ -15,14 +15,14 @@ import styles from './styles';
 
 class NavItem extends Component {
     static propTypes = {
-        requestToken: PropTypes.func.isRequired,
+        requestFetchToken: PropTypes.func.isRequired,
         route: routePropType.isRequired
     };
 
     async signOut(closeSession) {
         if (closeSession) {
             await SessionService.clearSession();
-            this.props.requestToken();
+            this.props.requestFetchToken();
         }
     }
 
@@ -49,6 +49,6 @@ class NavItem extends Component {
 export default connect(
     null,
     dispatch => ({
-        requestToken: () => dispatch(requestToken())
+        requestFetchToken: () => dispatch(requestFetchToken())
     })
 )(NavItem);
