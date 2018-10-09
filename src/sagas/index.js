@@ -1,7 +1,5 @@
 import {handleError} from './common';
-import {
-    getLastUserLogged, getToken, signIn
-} from './session';
+import {getLastUserLogged, getToken, signIn} from './session';
 
 export {getLastUserLogged};
 export {getToken};

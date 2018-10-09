@@ -2,44 +2,45 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
     brandContainer: {
-        height: 96,
+        height: 45,
         paddingRight: 10,
         paddingLeft: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#004e84'
+        backgroundColor: '#e32439'
     },
     brandImage: {
-        width: 200,
-        height: 76
+        width: 100,
+        height: 38
     },
     rightImageStyle: {
         width: 331,
         height: 76
     },
     text: {
-        fontWeight: 'bold',
-        fontSize: 38,
+        fontSize: 30,
         color: '#fff'
     },
     navContainer: {
-        height: 45,
+        height: 35,
         paddingRight: 10,
         paddingLeft: 10,
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        backgroundColor: '#dee2e3'
+        backgroundColor: '#333'
     },
     navItem: {
         alignItems: 'center'
     },
     navText: {
-        fontSize: 18,
-        marginRight: 10
+        marginRight: 10,
+        fontSize: 12,
+        color: '#fff'
     },
     navIcon: {
-        marginRight: 10
+        marginRight: 5,
+        marginLeft: 10
     }
 });

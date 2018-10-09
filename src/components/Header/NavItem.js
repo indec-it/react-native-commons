@@ -34,6 +34,8 @@ class NavItem extends Component {
                     <Icon
                         {...getFontAwesome(route.icon)}
                         containerStyle={styles.navIcon}
+                        size={12}
+                        color="#fff"
                     />
                     <Link to={route.path} onPress={() => this.signOut(route.closeSession)}>
                         <Text style={styles.navText}>

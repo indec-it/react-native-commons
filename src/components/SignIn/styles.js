@@ -4,42 +4,45 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
         alignItems: 'center',
         backgroundColor: '#fff'
     },
     image: {
-        marginBottom: 70
+        marginTop: 10
     },
     text: {
         fontSize: 20,
-        textAlign: 'center',
-        marginTop: 50,
-        marginBottom: 50
+        textAlign: 'center'
     },
     errorText: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: 20,
-        color: '#d00000'
+        color: '#e32439'
     },
     inputWrapper: {
         minWidth: 245,
-        paddingBottom: 0
+        paddingBottom: 10,
+        flexWrap: 'wrap'
     },
     textStyle: {
         height: 50,
         fontSize: 18
     },
     submitButton: {
-        marginTop: 50
+        marginTop: 10,
+        height: 30,
+        backgroundColor: '#e32439'
     },
     changeUserContainer: {
         marginTop: 10,
         padding: 5
     },
     changeUserText: {
+        marginTop: -15,
         marginBottom: 15,
-        paddingLeft: 15
+        paddingLeft: 15,
+        paddingRight: 15
+    },
+    helpText: {
+        fontSize: 12
     }
 });

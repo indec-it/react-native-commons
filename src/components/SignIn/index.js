@@ -36,7 +36,7 @@ const changeUserMessage = changeUserText => (
                 {changeUserText}
             </Text>
         ) : (
-            <Text>
+            <Text style={styles.helpText}>
                 Está ingresando con un usuario diferente al último que inició sesión.
                 {'\n'}
                 De continuar con el login se perderán todas los datos que no hayan sido sincronizados.
@@ -126,32 +126,32 @@ class SignIn extends Component {
         } = this.state;
         return (
             <Fragment>
-                <InputField
-                    wrapperStyle={styles.inputWrapper}
-                    inputStyle={styles.textStyle}
-                    label="Usuario"
-                    keyboardType="default"
-                    highlightColor="#d00000"
-                    autoCapitalize="none"
-                    onChangeText={text => this.setState(() => ({username: text}))}
-                    value={username}
-                />
-                <InputField
-                    wrapperStyle={styles.inputWrapper}
-                    inputStyle={styles.textStyle}
-                    label="Contraseña"
-                    keyboardType="default"
-                    highlightColor="#d00000"
-                    autoCapitalize="none"
-                    onChangeText={text => this.setState(() => ({password: text}))}
-                    value={password}
-                    secureTextEntry
-                />
+                <View style={styles.inputWrapper}>
+                    <InputField
+                        inputStyle={styles.textStyle}
+                        label="Usuario"
+                        keyboardType="default"
+                        highlightColor="#e32439"
+                        autoCapitalize="none"
+                        onChangeText={text => this.setState(() => ({username: text}))}
+                        value={username}
+                    />
+                    <InputField
+                        inputStyle={styles.textStyle}
+                        label="Contraseña"
+                        keyboardType="default"
+                        highlightColor="#e32439"
+                        autoCapitalize="none"
+                        onChangeText={text => this.setState(() => ({password: text}))}
+                        value={password}
+                        secureTextEntry
+                    />
+                </View>
                 {renderErrorMessages(failed, showCompleteUserAndPassword)}
                 <Button
+                    primary
                     title="Ingresar"
                     onPress={() => this.handleSubmit()}
-                    rounded
                     buttonStyle={styles.submitButton}
                 />
                 {showChangeUserMessage && (
@@ -174,7 +174,7 @@ class SignIn extends Component {
         return (
             <View style={styles.container}>
                 {image && <Image source={image} style={styles.image}/>}
-                <Icon {...getFontAwesome('lock')} size={32}/>
+                <Icon {...getFontAwesome('unlock')} size={32} color="#333"/>
                 <Text style={styles.text}>
                     Iniciar Sesión
                 </Text>
