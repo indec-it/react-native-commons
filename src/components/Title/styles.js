@@ -1,11 +1,19 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StatusBar, StyleSheet} from 'react-native';
+
+const {height} = Dimensions.get('window');
+
+const RF = percent => {
+    const deviceHeight = height - StatusBar.currentHeight;
+    const heightPercent = percent * deviceHeight / 100;
+    return Math.round(heightPercent);
+};
 
 export default StyleSheet.create({
     title: {
-        fontSize: 25,
+        fontSize: RF(3.5),
         fontWeight: 'bold',
-        color: '#0A74A5',
-        marginTop: 40,
+        color: '#e32439',
+        marginTop: 10,
         marginLeft: 15
     }
 });
