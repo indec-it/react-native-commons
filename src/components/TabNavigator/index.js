@@ -12,7 +12,7 @@ const TabNavigator = ({tabs, onChange, idSelected}) => (
     <View>
         <View style={styles.container}>
             {tabs.map(({id, label}) => (
-                <Text key={id} style={getTabStyle(id, idSelected)} onPress={() => onChange(id)}>
+                <Text key={id} style={[getTabStyle(id, idSelected), styles.rfFontTab]} onPress={() => onChange(id)}>
                     {label}
                 </Text>
             ))}
