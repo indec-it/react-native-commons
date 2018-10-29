@@ -9,7 +9,7 @@ export default class SessionService {
     static async signIn({username, password}, authEndpoint, redirectUri) {
         const loginService = new LoginService(TokenService, authEndpoint);
         const token = await loginService.login(username, password, redirectUri);
-        return !(token instanceof Error);
+        return !!token;
     }
 
     static async getToken() {
