@@ -8,55 +8,25 @@ import {Icon} from 'react-native-elements';
 import InputField from '@indec/react-native-md-textinput';
 import {isEmpty} from 'lodash';
 
-import {requestLogin, requestToken} from '../../actions/session';
+import {requestLogin, requestFetchToken} from '../../actions/session';
 import Button from '../Button';
+import ChangeUserMessage from './ChangeUserMessage';
+import ErrorLoginMessages from './ErrorLoginMessages';
 import imagePropType from '../../util/imagePropType';
 import getFontAwesome from '../../util/getFontAwesome';
 import styles from './styles';
 
-const renderErrorMessages = (failed, showCompleteUserAndPassword) => (
-    <View style={styles.errorText}>
-        {failed && !showCompleteUserAndPassword && (
-            <Text>
-                Usuario y/o contraseña inválidos
-            </Text>
-        )}
-        {showCompleteUserAndPassword && (
-            <Text style={styles.errorText}>
-                Debe completar el usuario y la contraseña
-            </Text>
-        )}
-    </View>
-);
-
-const changeUserMessage = changeUserText => (
-    <View style={styles.changeUserText}>
-        {changeUserText ? (
-            <Text>
-                {changeUserText}
-            </Text>
-        ) : (
-            <Text>
-                Está ingresando con un usuario diferente al último que inició sesión.
-                {'\n'}
-                De continuar con el login se perderán todas los datos que no hayan sido sincronizados.
-                {'\n'}
-                Si desea continuar toque el siguiente botón:
-            </Text>
-        )}
-    </View>
-);
-
 class SignIn extends Component {
     static propTypes = {
         requestLogin: PropTypes.func.isRequired,
-        requestToken: PropTypes.func.isRequired,
+        requestFetchToken: PropTypes.func.isRequired,
         loading: PropTypes.bool,
         failed: PropTypes.bool,
         logged: PropTypes.bool,
+        clientId: PropTypes.string.isRequired,
+        clientSecret: PropTypes.string.isRequired,
         redirectUri: PropTypes.string.isRequired,
         authEndpoint: PropTypes.string.isRequired,
-        userProfile: PropTypes.string,
         lastUserLogged: PropTypes.string,
         changeUserText: PropTypes.string,
         image: imagePropType
@@ -67,7 +37,6 @@ class SignIn extends Component {
         loading: false,
         image: null,
         logged: false,
-        userProfile: null,
         lastUserLogged: null,
         changeUserText: null
     };
@@ -81,11 +50,13 @@ class SignIn extends Component {
     }
 
     componentDidMount() {
-        this.props.requestToken();
+        this.props.requestFetchToken();
     }
 
     requestLogin() {
-        const {redirectUri, authEndpoint, userProfile} = this.props;
+        const {
+            redirectUri, authEndpoint, clientId, clientSecret
+        } = this.props;
         const {username, password} = this.state;
         this.setState(() => ({
             showCompleteUserAndPassword: false,
@@ -94,7 +65,7 @@ class SignIn extends Component {
         this.props.requestLogin({
             username,
             password
-        }, authEndpoint, redirectUri, userProfile);
+        }, authEndpoint, redirectUri, {clientId, clientSecret});
     }
 
     handleSubmit() {
@@ -147,7 +118,7 @@ class SignIn extends Component {
                     value={password}
                     secureTextEntry
                 />
-                {renderErrorMessages(failed, showCompleteUserAndPassword)}
+                <ErrorLoginMessages {...{failed, showCompleteUserAndPassword}}/>
                 <Button
                     title="Ingresar"
                     onPress={() => this.handleSubmit()}
@@ -156,7 +127,7 @@ class SignIn extends Component {
                 />
                 {showChangeUserMessage && (
                     <View style={styles.changeUserContainer}>
-                        {changeUserMessage(changeUserText)}
+                        <ChangeUserMessage {...{changeUserText}}/>
                         <Button
                             title="Descartar datos del usuario anterior e ingresar al sistema"
                             rounded
@@ -192,9 +163,9 @@ export default connect(
         lastUserLogged: state.session.lastUserLogged
     }),
     dispatch => ({
-        requestLogin: (user, authEndpoint, redirectUri, userProfile) => dispatch(
-            requestLogin(user, authEndpoint, redirectUri, userProfile)
+        requestLogin: (user, authEndpoint, redirectUri, clientCredentials) => dispatch(
+            requestLogin(user, authEndpoint, redirectUri, clientCredentials)
         ),
-        requestToken: () => dispatch(requestToken())
+        requestFetchToken: () => dispatch(requestFetchToken())
     })
 )(SignIn);

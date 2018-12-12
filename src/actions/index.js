@@ -7,13 +7,15 @@ import {
     USER_LOGIN_FAILED,
     USER_LOGIN_REQUESTED,
     USER_LOGIN_SUCCEEDED,
-    USER_TOKEN_REQUESTED,
-    USER_TOKEN_SUCCEEDED,
-    notifyDataCleared
+    USER_FETCH_REFRESH_TOKEN_REQUESTED,
+    USER_FETCH_TOKEN_REQUESTED,
+    USER_FETCH_TOKEN_SUCCEEDED,
+    USER_REFRESH_ACCESS_TOKEN_REQUESTED,
+    notifyDataCleared,
+    requestFetchRefreshAccessToken
 } from './session';
 
 export {ERROR_OCCURRED};
-export {handleError};
 export {CHANGE_USER_REQUESTED};
 export {CLEAR_USER_DATA_REQUESTED};
 export {CLEAR_USER_DATA_SUCCEEDED};
@@ -21,6 +23,10 @@ export {LAST_USER_LOGGED_REQUESTED};
 export {USER_LOGIN_REQUESTED};
 export {USER_LOGIN_SUCCEEDED};
 export {USER_LOGIN_FAILED};
-export {USER_TOKEN_REQUESTED};
-export {USER_TOKEN_SUCCEEDED};
+export {USER_FETCH_REFRESH_TOKEN_REQUESTED};
+export {USER_FETCH_TOKEN_REQUESTED};
+export {USER_FETCH_TOKEN_SUCCEEDED};
+export {USER_REFRESH_ACCESS_TOKEN_REQUESTED};
 export {notifyDataCleared};
+export {requestFetchRefreshAccessToken};
+export {handleError};

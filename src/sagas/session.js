@@ -3,11 +3,14 @@ import {call, put} from 'redux-saga/effects';
 import {handleError} from '../actions/common';
 import {
     notifyLoginFail,
-    notifyTokenReceived,
+    notifyFetchTokenSucceeded,
     notifyLoginSucceeded,
+    notifyRefreshAccessToken,
+    notifyFetchRefreshTokenSucceeded,
     receiveLastUserLogged,
     requestClearUserData,
-    requestToken,
+    requestFetchToken,
+    requestFetchRefreshToken,
     userChanged
 } from '../actions/session';
 import {SessionService} from '../services';
@@ -20,8 +23,17 @@ export function* clearSession() {
     }
 }
 
+export function* fetchRefreshToken({authEndpoint, clientId, clientSecret}) {
+    try {
+        const refreshToken = yield call(SessionService.fetchRefreshToken, authEndpoint, clientId, clientSecret);
+        yield put(notifyFetchRefreshTokenSucceeded(refreshToken));
+    } catch (err) {
+        yield put(handleError(err));
+    }
+}
+
 export function* signIn({
-    user, authEndpoint, redirectUri
+    user, authEndpoint, redirectUri, clientCredentials
 }) {
     try {
         const logged = yield call(
@@ -37,7 +49,11 @@ export function* signIn({
                 yield put(userChanged());
                 yield put(requestClearUserData());
             }
-            yield put(requestToken());
+            yield put(requestFetchToken());
+            if (clientCredentials) {
+                const {clientId, clientSecret} = clientCredentials;
+                yield put(requestFetchRefreshToken(authEndpoint, clientId, clientSecret));
+            }
             yield put(notifyLoginSucceeded());
         } else {
             yield put(notifyLoginFail());
@@ -61,7 +77,16 @@ export function* getToken() {
     try {
         const token = yield call(SessionService.getToken);
         yield call(getLastUserLogged);
-        yield put(notifyTokenReceived(token));
+        yield put(notifyFetchTokenSucceeded(token));
+    } catch (err) {
+        yield put(handleError(err));
+    }
+}
+
+export function* refreshAccessToken({authEndpoint, clientId, clientSecret}) {
+    try {
+        yield call(SessionService.refreshAccessToken, authEndpoint, clientId, clientSecret);
+        yield put(notifyRefreshAccessToken());
     } catch (err) {
         yield put(handleError(err));
     }

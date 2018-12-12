@@ -38,8 +38,17 @@ export default class SessionService {
         return SessionService.save(currentUser);
     }
 
-    static async getLastUserLogged() {
-        const lastUserLogged = await SessionService.findOne();
-        return lastUserLogged;
+    static getLastUserLogged() {
+        return SessionService.findOne();
+    }
+
+    static fetchRefreshToken(authEndpoint, clientId, clientSecret) {
+        const loginService = new LoginService(TokenService, authEndpoint);
+        return loginService.fetchRefreshToken(clientId, clientSecret);
+    }
+
+    static refreshAccessToken(authEndpoint, clientId, clientSecret) {
+        const loginService = new LoginService(TokenService, authEndpoint);
+        return loginService.refreshAccessToken(clientId, clientSecret);
     }
 }

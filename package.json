@@ -11,7 +11,7 @@
   "devDependencies": {
     "@commitlint/cli": "^7.2.1",
     "@commitlint/travis-cli": "^7.2.1",
-    "@indec/heimdall": "^0.2.7",
+    "@indec/heimdall": "^0.2.8",
     "@indec/react-native-md-textinput": "^3.1.2",
     "babel-eslint": "^10.0.1",
     "babel-plugin-lodash": "^3.3.4",
