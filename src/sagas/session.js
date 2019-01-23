@@ -7,6 +7,7 @@ import {
     notifyLoginSucceeded,
     notifyRefreshAccessToken,
     notifyFetchRefreshTokenSucceeded,
+    receiveCurrentUser,
     receiveLastUserLogged,
     requestClearUserData,
     requestFetchToken,
@@ -87,6 +88,15 @@ export function* refreshAccessToken({authEndpoint, clientId, clientSecret}) {
     try {
         yield call(SessionService.refreshAccessToken, authEndpoint, clientId, clientSecret);
         yield put(notifyRefreshAccessToken());
+    } catch (err) {
+        yield put(handleError(err));
+    }
+}
+
+export function* fetchCurrentUser() {
+    try {
+        const user = yield call(SessionService.fetchCurrentUser);
+        yield put(receiveCurrentUser(user));
     } catch (err) {
         yield put(handleError(err));
     }

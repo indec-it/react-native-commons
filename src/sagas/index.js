@@ -1,8 +1,9 @@
 import {handleError} from './common';
 import {
-    getLastUserLogged, getToken, fetchRefreshToken, refreshAccessToken, signIn
+    fetchCurrentUser, getLastUserLogged, getToken, fetchRefreshToken, refreshAccessToken, signIn
 } from './session';
 
+export {fetchCurrentUser};
 export {fetchRefreshToken};
 export {getLastUserLogged};
 export {getToken};
