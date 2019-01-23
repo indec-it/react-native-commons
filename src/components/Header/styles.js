@@ -41,5 +41,10 @@ export default StyleSheet.create({
     },
     navIcon: {
         marginRight: 10
+    },
+    versionStyle: {
+        fontSize: 15,
+        color: '#fff',
+        textAlign: 'right'
     }
 });
