@@ -39,7 +39,7 @@ const Button = ({
 }) => (
     <Btn
         buttonStyle={getStyle(styles.button, primary, danger, buttonStyle)}
-        textStyle={getStyle(styles.buttonText, primary, danger, style)}
+        titleStyle={getStyle(styles.buttonText, primary, danger, style)}
         icon={getIcon(primary, danger, icon)}
         {...elementProps}
     />
