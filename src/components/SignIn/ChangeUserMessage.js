@@ -4,11 +4,11 @@ import {Text, View} from 'react-native';
 
 import styles from './styles';
 
-const ChangeUserMessage = ({changeUserText}) => (
+const ChangeUserMessage = ({text}) => (
     <View style={styles.changeUserText}>
-        {changeUserText ? (
+        {text ? (
             <Text>
-                {changeUserText}
+                {text}
             </Text>
         ) : (
             <Text>
@@ -23,11 +23,11 @@ const ChangeUserMessage = ({changeUserText}) => (
 );
 
 ChangeUserMessage.propTypes = {
-    changeUserText: PropTypes.string
+    text: PropTypes.string
 };
 
 ChangeUserMessage.defaultProps = {
-    changeUserText: null
+    text: null
 };
 
 export default ChangeUserMessage;

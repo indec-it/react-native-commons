@@ -1,5 +1,6 @@
 import {LoginService, TokenService} from '@indec/heimdall/native';
 import decode from 'jwt-decode';
+import {isEmpty} from 'lodash';
 
 import StorageService from './storage';
 
@@ -50,5 +51,22 @@ export default class SessionService {
     static refreshAccessToken(authEndpoint, clientId, clientSecret) {
         const loginService = new LoginService(TokenService, authEndpoint);
         return loginService.refreshAccessToken(clientId, clientSecret);
+    }
+
+    static validateUser(username, password, lastUserLogged) {
+        if (isEmpty(username) || isEmpty(password)) {
+            return {
+                incompleteUserOrPassword: true
+            };
+        }
+        if (lastUserLogged && lastUserLogged !== username) {
+            return {
+                incompleteUserOrPassword: false,
+                confirmChangeUser: true
+            };
+        }
+        return {
+            isUserValid: true
+        };
     }
 }

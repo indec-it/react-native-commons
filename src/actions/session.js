@@ -92,3 +92,18 @@ export const requestChangeUser = userProfile => ({
 export const userChanged = () => ({
     type: CHANGE_USER_SUCCEEDED
 });
+
+export const USER_VALIDATE = 'USER_VALIDATE';
+
+export const requestValidateUser = (username, password, lastUserLogged) => ({
+    type: USER_VALIDATE,
+    username,
+    password,
+    lastUserLogged
+});
+
+export const CLEAN_USER_VALIDATIONS = 'CLEAN_USER_VALIDATIONS';
+
+export const cleanUserValidations = () => ({
+    type: CLEAN_USER_VALIDATIONS
+});
