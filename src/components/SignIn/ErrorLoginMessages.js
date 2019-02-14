@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import {Text, View} from 'react-native';
 import styles from './styles';
 
-const ErrorLoginMessages = ({failed, showCompleteUserAndPassword}) => (
+const ErrorLoginMessages = ({failed, incompleteUserOrPassword}) => (
     <View>
-        {failed && !showCompleteUserAndPassword && (
+        {failed && !incompleteUserOrPassword && (
             <Text style={styles.errorText}>
                 Usuario y/o contraseña inválidos
             </Text>
         )}
-        {showCompleteUserAndPassword && (
+        {incompleteUserOrPassword && (
             <Text style={styles.errorText}>
                 Debe completar el usuario y la contraseña
             </Text>
@@ -20,12 +20,12 @@ const ErrorLoginMessages = ({failed, showCompleteUserAndPassword}) => (
 
 ErrorLoginMessages.propTypes = {
     failed: PropTypes.bool,
-    showCompleteUserAndPassword: PropTypes.bool
+    incompleteUserOrPassword: PropTypes.bool
 };
 
 ErrorLoginMessages.defaultProps = {
     failed: false,
-    showCompleteUserAndPassword: false
+    incompleteUserOrPassword: false
 };
 
 export default ErrorLoginMessages;
