@@ -1,10 +1,10 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Image, Text, View} from 'react-native';
 
-import styles from './styles';
 import {stylePropType} from '../../util';
 import brandImageDefault from '../../images/brand.png';
+import styles from './styles';
 
 const Brand = ({
     text, version, rightImage, brandImage, style
@@ -12,12 +12,12 @@ const Brand = ({
     <View style={[styles.brandContainer, style.brandContainer]}>
         <Image source={brandImage} style={styles.brandImage}/>
         {text && (
-            <Fragment>
+            <View style={styles.appData}>
                 <Text style={styles.text}>
                     {text}
                 </Text>
                 {version && (<Text style={styles.version}>{version}</Text>)}
-            </Fragment>
+            </View>
         )}
         {rightImage && (
             <Image source={rightImage} style={styles.rightImageStyle}/>
