@@ -14,7 +14,7 @@ import {
 import {SessionService} from '../services';
 
 const initialState = {
-    loading: false, failed: false, incompleteUserOrPassword: false, confirmChangeUser: false
+    loading: false, failed: false, incompleteUserOrPassword: false, confirmChangeUser: false, isUserValid: false
 };
 
 export default function (state = initialState, action) {
