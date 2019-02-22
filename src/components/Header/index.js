@@ -78,6 +78,7 @@ class Header extends PureComponent {
                         onDismiss={() => this.handleCloseModal()}
                         onAccept={() => this.signOut()}
                         text={getLogoutMessage(routes)}
+                        title="Cerrar Sesión"
                     />
                 )}
             </Fragment>
