@@ -33,7 +33,7 @@ export default function (state = initialState, action) {
             return {...state, loading: false, logged: true};
         case USER_LOGIN_FAILED:
             return {
-                ...state, loading: false, failed: true, confirmChangeUser: false
+                ...state, loading: false, failed: true, confirmChangeUser: false, isUserValid: false
             };
         case USER_FETCH_REFRESH_TOKEN_REQUESTED:
         case USER_FETCH_TOKEN_REQUESTED:
