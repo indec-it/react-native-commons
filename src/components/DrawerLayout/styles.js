@@ -24,13 +24,7 @@ export default StyleSheet.create({
         color: '#fff'
     },
     navContainer: {
-        height: 45,
-        paddingRight: 10,
-        paddingLeft: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        backgroundColor: '#dee2e3'
+        flexDirection: 'row'
     },
     navItem: {
         alignItems: 'center'
@@ -51,5 +45,29 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'flex-end'
+    },
+    userContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        padding: 10
+    },
+    userText: {
+        fontSize: 16
+    },
+    versionContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-end'
+    },
+    versionText: {
+        fontSize: 16
+    },
+    routesContainer: {
+        flex: 1,
+        padding: 10,
+        justifyContent: 'space-around'
+    },
+    dividerStyle: {
+        backgroundColor: '#dee2e3'
     }
 });

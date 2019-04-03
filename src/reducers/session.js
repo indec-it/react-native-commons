@@ -1,5 +1,6 @@
 import {
     CLEAN_USER_VALIDATIONS,
+    FETCH_CURRENT_USER_SUCCEEDED,
     LAST_USER_LOGGED_REQUESTED,
     LAST_USER_LOGGED_SUCCEEDED,
     USER_LOGIN_FAILED,
@@ -21,6 +22,8 @@ export default function (state = initialState, action) {
     switch (action.type) {
         case CLEAN_USER_VALIDATIONS:
             return {...state, ...initialState};
+        case FETCH_CURRENT_USER_SUCCEEDED:
+            return {...state, user: action.user};
         case LAST_USER_LOGGED_REQUESTED:
             return {...state, lastUserLogged: null};
         case LAST_USER_LOGGED_SUCCEEDED:

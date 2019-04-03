@@ -69,4 +69,8 @@ export default class SessionService {
             isUserValid: true
         };
     }
+
+    static async fetchCurrentUser() {
+        return decode(await TokenService.getToken());
+    }
 }
