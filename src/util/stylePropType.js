@@ -6,7 +6,8 @@ export default PropTypes.oneOfType([
     PropTypes.arrayOf(
         PropTypes.oneOfType([
             PropTypes.number,
-            PropTypes.shape({})
+            PropTypes.shape({}),
+            PropTypes.bool
         ])
     )
 ]);

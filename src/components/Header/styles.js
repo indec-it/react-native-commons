@@ -41,5 +41,15 @@ export default StyleSheet.create({
     },
     navIcon: {
         marginRight: 10
+    },
+    version: {
+        fontSize: 15,
+        color: '#fff',
+        textAlign: 'right'
+    },
+    appData: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'flex-end'
     }
 });

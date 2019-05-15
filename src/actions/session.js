@@ -2,12 +2,12 @@ export const USER_LOGIN_REQUESTED = 'USER_LOGIN_REQUESTED';
 export const USER_LOGIN_SUCCEEDED = 'USER_LOGIN_SUCCEEDED';
 export const USER_LOGIN_FAILED = 'USER_LOGIN_FAILED';
 
-export const requestLogin = (user, authEndpoint, redirectUri, userProfile) => ({
+export const requestLogin = (user, authEndpoint, redirectUri, clientCredentials) => ({
     type: USER_LOGIN_REQUESTED,
     user,
     authEndpoint,
     redirectUri,
-    userProfile
+    clientCredentials
 });
 
 export const notifyLoginFail = () => ({
@@ -18,16 +18,44 @@ export const notifyLoginSucceeded = () => ({
     type: USER_LOGIN_SUCCEEDED
 });
 
-export const USER_TOKEN_REQUESTED = 'USER_TOKEN_REQUESTED';
-export const USER_TOKEN_SUCCEEDED = 'USER_TOKEN_SUCCEEDED';
+export const USER_FETCH_TOKEN_REQUESTED = 'USER_FETCH_TOKEN_REQUESTED';
+export const USER_FETCH_TOKEN_SUCCEEDED = 'USER_TOKEN_SUCCEEDED';
 
-export const requestToken = () => ({
-    type: USER_TOKEN_REQUESTED
+export const requestFetchToken = () => ({
+    type: USER_FETCH_TOKEN_REQUESTED
 });
 
-export const notifyTokenReceived = token => ({
-    type: USER_TOKEN_SUCCEEDED,
+export const notifyFetchTokenSucceeded = token => ({
+    type: USER_FETCH_TOKEN_SUCCEEDED,
     token
+});
+
+export const USER_FETCH_REFRESH_TOKEN_REQUESTED = 'USER_FETCH_REFRESH_TOKEN_REQUESTED';
+export const USER_FETCH_REFRESH_TOKEN_SUCCEEDED = 'USER_FETCH_REFRESH_TOKEN_SUCCEEDED';
+
+export const requestFetchRefreshToken = (authEndpoint, clientId, clientSecret) => ({
+    type: USER_FETCH_REFRESH_TOKEN_REQUESTED,
+    authEndpoint,
+    clientId,
+    clientSecret
+});
+
+export const notifyFetchRefreshTokenSucceeded = () => ({
+    type: USER_FETCH_REFRESH_TOKEN_SUCCEEDED
+});
+
+export const USER_REFRESH_ACCESS_TOKEN_REQUESTED = 'USER_REFRESH_ACCESS_TOKEN_REQUESTED';
+export const USER_REFRESH_ACCESS_TOKEN_SUCCEEDED = 'USER_REFRESH_ACCESS_TOKEN_SUCCEEDED';
+
+export const requestFetchRefreshAccessToken = (authEndpoint, clientId, clientSecret) => ({
+    type: USER_REFRESH_ACCESS_TOKEN_REQUESTED,
+    authEndpoint,
+    clientId,
+    clientSecret
+});
+
+export const notifyRefreshAccessToken = () => ({
+    type: USER_REFRESH_ACCESS_TOKEN_SUCCEEDED
 });
 
 export const LAST_USER_LOGGED_REQUESTED = 'LAST_USER_LOGGED_REQUESTED';
@@ -63,4 +91,19 @@ export const requestChangeUser = userProfile => ({
 
 export const userChanged = () => ({
     type: CHANGE_USER_SUCCEEDED
+});
+
+export const USER_VALIDATE = 'USER_VALIDATE';
+
+export const requestValidateUser = (username, password, lastUserLogged) => ({
+    type: USER_VALIDATE,
+    username,
+    password,
+    lastUserLogged
+});
+
+export const CLEAN_USER_VALIDATIONS = 'CLEAN_USER_VALIDATIONS';
+
+export const cleanUserValidations = () => ({
+    type: CLEAN_USER_VALIDATIONS
 });

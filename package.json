@@ -5,35 +5,44 @@
   "private": false,
   "main": "src/index.js",
   "scripts": {
-    "test": "eslint ./",
-    "precommit": "npm test",
+    "test": "mocha",
+    "eslint": "eslint ./",
+    "precommit": "npm run eslint && npm test",
     "commitmsg": "commitlint -e"
   },
   "dependencies": {},
   "devDependencies": {
-    "@commitlint/cli": "^7.0.0",
-    "@commitlint/travis-cli": "^7.0.0",
-    "@indec/heimdall": "^0.2.3",
-    "@indec/react-native-md-textinput": "^3.1.1",
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.5",
+    "@commitlint/cli": "^7.2.1",
+    "@commitlint/travis-cli": "^7.2.1",
+    "@indec/heimdall": "^0.2.8",
+    "@indec/react-native-md-textinput": "^3.1.2",
+    "babel-eslint": "^10.0.1",
     "babel-plugin-lodash": "^3.3.4",
-    "babel-preset-react-native": "^4.0.0",
-    "eslint": "5.0.1",
-    "eslint-config-airbnb": "^17.0.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.10.0",
-    "husky": "^0.14.3",
+    "babel-preset-react-app": "^3.1.1",
+    "babel-preset-react-native": "^4.0.1",
+    "babel-register": "^6.26.0",
+    "eslint": "5.10.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-lodash": "^2.7.0",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-react": "^7.11.1",
+    "husky": "^1.2.0",
+    "mocha": "^5.2.0",
+    "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.11",
     "prop-types": "^15.6.2",
-    "react": "^16.4.1",
-    "react-native": "^0.55.4",
-    "react-native-elements": "^0.19.0",
-    "react-redux": "^5.0.6",
-    "react-router-native": "^4.2.0",
-    "redux-saga": "^0.16.0"
+    "react": "^16.6.3",
+    "react-native": "^0.57.7",
+    "react-native-elements": "^0.19.1",
+    "react-redux": "^6.0.0",
+    "react-router-native": "^4.3.0",
+    "redux-saga": "^0.16.2",
+    "should": "^13.2.1"
   },
   "peerDependencies": {
+    "jwt-decode": "^2.2.0",
     "lodash": "^4.17.0",
     "prop-types": "^15.5.10",
     "react": ">=16.2.0",
@@ -41,13 +50,14 @@
     "react-native-elements": ">=0.18.5",
     "react-router-native": ">=4.2.0"
   },
+  "engines": {
+    "node": ">=10.13"
+  },
   "keywords": [
     "react",
     "react-native",
     "components"
   ],
-  "author": "INDEC (https://github.com/indec-it)",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/indec-it/react-native-commons.git"
@@ -55,5 +65,7 @@
   "bugs": {
     "url": "https://github.com/indec-it/react-native-commons/issues"
   },
-  "homepage": "https://github.com/indec-it/react-native-commons"
+  "homepage": "https://github.com/indec-it/react-native-commons",
+  "author": "INDEC (https://github.com/indec-it)",
+  "license": "MIT"
 }

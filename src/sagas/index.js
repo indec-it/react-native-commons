@@ -1,10 +1,11 @@
 import {handleError} from './common';
 import {
-    changeUser, getLastUserLogged, getToken, signIn
+    getLastUserLogged, getToken, fetchRefreshToken, refreshAccessToken, signIn
 } from './session';
 
-export {changeUser};
+export {fetchRefreshToken};
 export {getLastUserLogged};
 export {getToken};
 export {handleError};
+export {refreshAccessToken};
 export {signIn};
