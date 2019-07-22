@@ -13,8 +13,9 @@ const Routes = ({
         {routes.map(route => (
             <NavItem
                 key={route.key}
-                {...{route, onDisable, onLogout}}
-                disabled={disabled}
+                {...{
+                    route, onDisable, onLogout, disabled
+                }}
             />
         ))}
     </View>

@@ -28,7 +28,7 @@ class Header extends PureComponent {
         routes: PropTypes.arrayOf(routePropType),
         version: PropTypes.string,
         requestFetchToken: PropTypes.func.isRequired,
-        running: PropTypes.bool
+        disabled: PropTypes.bool
     };
 
     static defaultProps = {
@@ -38,7 +38,7 @@ class Header extends PureComponent {
         text: null,
         rightImage: null,
         version: null,
-        running: false
+        disabled: false
     };
 
     constructor(props) {
@@ -75,7 +75,7 @@ class Header extends PureComponent {
 
     render() {
         const {
-            routes, text, brandImage, style, rightImage, version, running
+            routes, text, brandImage, style, rightImage, version, disabled
         } = this.props;
         const {showModal, modalType} = this.state;
         return (
@@ -89,8 +89,7 @@ class Header extends PureComponent {
                     <Routes
                         onDisable={() => this.handleShowDisableModal(modalTypes.SYNC_ALERT)}
                         onLogout={route => this.handleShowLogoutModal(route, modalTypes.CLOSE_SESSION)}
-                        routes={routes}
-                        disabled={running}
+                        {...{routes, disabled}}
                     />
                 )}
                 {showModal && modalType === modalTypes.SYNC_ALERT && (
@@ -114,9 +113,7 @@ class Header extends PureComponent {
 }
 
 export default connect(
-    state => ({
-        running: state.sync.running
-    }),
+    null,
     dispatch => ({
         requestFetchToken: () => dispatch(requestFetchToken())
     })
