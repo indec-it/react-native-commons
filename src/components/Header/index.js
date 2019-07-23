@@ -1,21 +1,16 @@
 import React, {PureComponent, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {find, get, isEmpty} from 'lodash';
+import {isEmpty} from 'lodash';
 
 import {requestFetchToken} from '../../actions/session';
-import {CONFIRM_LOGOUT_MESSAGE, modalTypes} from '../../constants';
+import {modalTypes} from '../../constants';
 import SessionService from '../../services/session';
 import stylePropType from '../../util/stylePropType';
 import routePropType from '../../util/routePropType';
-import ConfirmModal from '../ConfirmModal';
-import AlertModal from '../AlertModal';
+import Modals from './Modals';
 import Brand from './Brand';
 import Routes from './Routes';
-
-const getLogoutMessage = routes => get(
-    find(routes, route => route.logoutMessage), 'logoutMessage'
-) || CONFIRM_LOGOUT_MESSAGE;
 
 const brandImageDefault = require('../../images/brand.png');
 
@@ -92,19 +87,11 @@ class Header extends PureComponent {
                         {...{routes, disabled}}
                     />
                 )}
-                {showModal && modalType === modalTypes.SYNC_ALERT && (
-                    <AlertModal
-                        onDismiss={() => this.handleCloseModal()}
-                        text="Hasta que no termine este proceso, no puede continuar."
-                        title="Sincronización"
-                    />
-                )}
-                {showModal && modalType === modalTypes.CLOSE_SESSION && (
-                    <ConfirmModal
-                        onDismiss={() => this.handleCloseModal()}
+                {showModal && (
+                    <Modals
+                        {...{routes, modalType}}
                         onAccept={() => this.signOut()}
-                        text={getLogoutMessage(routes)}
-                        title="Cerrar Sesión"
+                        onDismiss={() => this.handleCloseModal()}
                     />
                 )}
             </Fragment>
