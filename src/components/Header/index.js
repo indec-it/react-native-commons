@@ -1,20 +1,16 @@
 import React, {PureComponent, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {find, get, isEmpty} from 'lodash';
+import {isEmpty} from 'lodash';
 
 import {requestFetchToken} from '../../actions/session';
-import {CONFIRM_LOGOUT_MESSAGE} from '../../constants';
+import {modalTypes} from '../../constants';
 import SessionService from '../../services/session';
 import stylePropType from '../../util/stylePropType';
 import routePropType from '../../util/routePropType';
-import ConfirmModal from '../ConfirmModal';
+import Modals from './Modals';
 import Brand from './Brand';
 import Routes from './Routes';
-
-const getLogoutMessage = routes => get(
-    find(routes, route => route.logoutMessage), 'logoutMessage'
-) || CONFIRM_LOGOUT_MESSAGE;
 
 const brandImageDefault = require('../../images/brand.png');
 
@@ -26,7 +22,8 @@ class Header extends PureComponent {
         text: PropTypes.string,
         routes: PropTypes.arrayOf(routePropType),
         version: PropTypes.string,
-        requestFetchToken: PropTypes.func.isRequired
+        requestFetchToken: PropTypes.func.isRequired,
+        disabled: PropTypes.bool
     };
 
     static defaultProps = {
@@ -35,19 +32,29 @@ class Header extends PureComponent {
         routes: [],
         text: null,
         rightImage: null,
-        version: null
+        version: null,
+        disabled: false
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            showModal: false
+            showModal: false,
+            modalType: null
         };
     }
 
-    handleShowModal(route) {
+    handleShowModal(modalType) {
+        this.setState(() => ({showModal: true, modalType}));
+    }
+
+    handleShowDisableModal(modalType) {
+        this.handleShowModal(modalType);
+    }
+
+    handleShowLogoutModal(modalType, route) {
         if (route.closeSession) {
-            this.setState(() => ({showModal: true}));
+            this.handleShowModal(modalType);
         }
     }
 
@@ -63,22 +70,28 @@ class Header extends PureComponent {
 
     render() {
         const {
-            routes, text, brandImage, style, rightImage, version
+            routes, text, brandImage, style, rightImage, version, disabled
         } = this.props;
-        const {showModal} = this.state;
+        const {showModal, modalType} = this.state;
         return (
             <Fragment>
-                <Brand {...{
-                    text, version, rightImage, brandImage, style
-                }}
+                <Brand
+                    {...{
+                        text, version, rightImage, brandImage, style
+                    }}
                 />
-                {!isEmpty(routes) && <Routes onLogout={route => this.handleShowModal(route)} routes={routes}/>}
+                {!isEmpty(routes) && (
+                    <Routes
+                        onDisable={() => this.handleShowDisableModal(modalTypes.SYNC_ALERT)}
+                        onLogout={route => this.handleShowLogoutModal(route, modalTypes.CLOSE_SESSION)}
+                        {...{routes, disabled}}
+                    />
+                )}
                 {showModal && (
-                    <ConfirmModal
-                        onDismiss={() => this.handleCloseModal()}
+                    <Modals
+                        {...{routes, modalType}}
                         onAccept={() => this.signOut()}
-                        text={getLogoutMessage(routes)}
-                        title="Cerrar Sesión"
+                        onDismiss={() => this.handleCloseModal()}
                     />
                 )}
             </Fragment>
@@ -86,7 +99,8 @@ class Header extends PureComponent {
     }
 }
 
-export default connect(null,
+export default connect(
+    null,
     dispatch => ({
         requestFetchToken: () => dispatch(requestFetchToken())
     })
