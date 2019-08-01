@@ -52,7 +52,7 @@ class Header extends PureComponent {
         this.handleShowModal(modalType);
     }
 
-    handleShowLogoutModal(modalType, route) {
+    handleShowLogoutModal(route, modalType) {
         if (route.closeSession) {
             this.handleShowModal(modalType);
         }
