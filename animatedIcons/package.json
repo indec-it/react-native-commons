@@ -1,0 +1,5 @@
+{
+  "name": "@indec/react-native-commons/animatedIcons",
+  "private": true,
+  "main": "../src/components/AnimatedIcons/index.js"
+}
