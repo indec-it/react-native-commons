@@ -1,6 +1,6 @@
 {
   "name": "@indec/react-native-commons",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Common react-native components for apps",
   "private": false,
   "main": "src/index.js",
